@@ -1,0 +1,2875 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portofolio Yohanes Saragih — Desain Poster, Editing Video, Fotografi, dan Animasi.">
+  <meta name="theme-color" content="#070b14">
+  <title>Yohanes Saragih — Portfolio DKV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b14;
+      --panel: #0e1627;
+      --panel-2: #111d32;
+      --text: #eef4ff;
+      --muted: #a5b3c9;
+      --blue: #2563eb;
+      --cyan: #38bdf8;
+      --violet: #6366f1;
+      --line: rgba(148, 163, 184, .18);
+      --max: 1100px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", sans-serif;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse 75% 55% at 82% 2%, rgba(37, 99, 235, .24), transparent 60%),
+        radial-gradient(ellipse 65% 50% at 12% 18%, rgba(56, 189, 248, .14), transparent 58%),
+        radial-gradient(ellipse 60% 55% at 88% 85%, rgba(99, 102, 241, .16), transparent 62%),
+        radial-gradient(circle at 35% 78%, rgba(14, 165, 233, .11), transparent 48%),
+        linear-gradient(180deg, #070b14 0%, #080e1c 50%, #060a12 100%);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated Aurora Glow Layer */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -15%;
+      pointer-events: none;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 22% 28%, rgba(56, 189, 248, .13), transparent 36%),
+        radial-gradient(circle at 78% 24%, rgba(37, 99, 235, .18), transparent 40%),
+        radial-gradient(circle at 58% 76%, rgba(99, 102, 241, .14), transparent 42%);
+      filter: blur(36px);
+      animation: auroraDrift 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes auroraDrift {
+      0% { transform: translate3d(-2%, -1.5%, 0) scale(1); }
+      50% { transform: translate3d(2%, 1.5%, 0) scale(1.04); }
+      100% { transform: translate3d(-1%, 2.5%, 0) scale(1.02); }
+    }
+
+    /* Creative Grid + Vignette Background */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: .28;
+      background-image:
+        linear-gradient(rgba(56, 189, 248, .085) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, .085) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle at 55% 32%, rgba(0, 0, 0, .95) 15%, rgba(0, 0, 0, .35) 68%, transparent 95%);
+    }
+
+    /* Ambient Decorative Background Shapes */
+    .bg-ambient {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(2px);
+      opacity: .55;
+    }
+
+    .bg-orb.orb-1 {
+      width: 340px;
+      height: 340px;
+      top: 9%;
+      left: -90px;
+      background: radial-gradient(circle, rgba(56, 189, 248, .14), rgba(37, 99, 235, .02) 70%);
+      animation: floatOrbA 15s ease-in-out infinite;
+    }
+
+    .bg-orb.orb-2 {
+      width: 420px;
+      height: 420px;
+      bottom: -120px;
+      right: -110px;
+      background: radial-gradient(circle, rgba(99, 102, 241, .16), rgba(37, 99, 235, .02) 72%);
+      animation: floatOrbB 19s ease-in-out infinite;
+    }
+
+    .bg-ring {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      top: 56%;
+      left: 6%;
+      border-radius: 50%;
+      border: 1px dashed rgba(56, 189, 248, .11);
+      animation: spinSlow 46s linear infinite;
+    }
+
+    @keyframes floatOrbA {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(28px, 22px); }
+    }
+
+    @keyframes floatOrbB {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-26px, -24px); }
+    }
+
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .container { width: min(92%, var(--max)); margin: auto; }
+
+    /* Header & Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(7, 11, 20, .82);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-weight: 850;
+      letter-spacing: .5px;
+      font-size: 1.12rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .logo span, .accent { color: var(--cyan); }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-size: .92rem;
+      font-weight: 500;
+      padding: 9px 13px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      color: #fff;
+      background: rgba(59, 130, 246, .14);
+      border-color: rgba(56, 189, 248, .25);
+    }
+
+    .menu-btn {
+      display: none;
+      background: rgba(14, 22, 39, .8);
+      border: 1px solid var(--line);
+      color: var(--text);
+      padding: 9px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* SPA Page Transitions */
+    .page { display: none; animation: fade .35s ease; }
+    .page.active { display: block; }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scroll-Reveal Animation */
+    .reveal-item {
+      opacity: 0;
+      filter: blur(5px);
+      transform: translateY(22px) scale(0.985);
+      transition:
+        opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+      will-change: opacity, filter, transform;
+    }
+
+    .reveal-item.is-visible {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0) scale(1);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      align-items: center;
+      gap: 52px;
+      padding: 60px 0;
+    }
+
+    .hero-copy { position: relative; }
+
+    .hero-copy::before {
+      content: "CREATIVE PORTFOLIO / 2026";
+      display: inline-block;
+      margin-bottom: 16px;
+      color: #7dd3fc;
+      font: 700 .68rem/1.2 ui-monospace, SFMono-Regular, monospace;
+      letter-spacing: 2px;
+      border: 1px solid rgba(56, 189, 248, .25);
+      border-radius: 999px;
+      padding: 8px 13px;
+      background: rgba(14, 22, 39, .65);
+    }
+
+    .eyebrow {
+      color: var(--cyan);
+      font-weight: 750;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: .76rem;
+    }
+
+    h1 {
+      font-size: clamp(2.7rem, 6.8vw, 5.1rem);
+      line-height: 1.04;
+      letter-spacing: -2px;
+      margin: 16px 0;
+      font-weight: 900;
+    }
+
+    h1 span { color: var(--cyan); }
+
+    .lead {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 1.06rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 19px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: .94rem;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: all .2s ease;
+      background: rgba(14, 22, 39, .68);
+      color: var(--text);
+    }
+
+    .btn.primary {
+      background: linear-gradient(120deg, #3b82f6, #1d4ed8);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, .28);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.12);
+      border-color: rgba(56, 189, 248, .4);
+    }
+
+    .page-hint {
+      font-size: .85rem;
+      color: #7dd3fc;
+      margin-top: 22px;
+    }
+
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 26px;
+      max-width: 560px;
+    }
+
+    .stat {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(14, 22, 39, .76);
+      backdrop-filter: blur(6px);
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--cyan);
+      font: 800 1.35rem/1.2 ui-monospace, monospace;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: .76rem;
+    }
+
+    /* Profile Card & Orbit Rings */
+    .hero-visual { position: relative; }
+
+    .profile-card {
+      position: relative;
+      isolation: isolate;
+      background: linear-gradient(145deg, rgba(56, 189, 248, .14), rgba(59, 130, 246, .05));
+      border: 1px solid rgba(56, 189, 248, .26);
+      border-radius: 26px;
+      padding: 30px 26px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .profile-card::before,
+    .profile-card::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(56, 189, 248, .22);
+      border-radius: 50%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .profile-card::before {
+      width: 245px;
+      height: 245px;
+      top: -25px;
+      right: -25px;
+    }
+
+    .profile-card::after {
+      width: 285px;
+      height: 285px;
+      bottom: -35px;
+      left: -30px;
+      border-style: dashed;
+      opacity: .55;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      width: 184px;
+      height: 184px;
+      margin: 4px auto 20px;
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      font-size: 3.9rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: radial-gradient(circle at 30% 25%, #60a5fa, #1d4ed8 60%, #0f172a);
+      border: 5px solid rgba(255, 255, 255, .14);
+      color: white;
+      box-shadow: 0 14px 35px rgba(2, 6, 23, .6);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .avatar-upload-btn {
+      position: absolute;
+      bottom: 4px;
+      right: 6px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #0e1627;
+      border: 1px solid rgba(56, 189, 248, .5);
+      color: var(--cyan);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: .95rem;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .45);
+      transition: .2s;
+    }
+
+    .avatar-upload-btn:hover {
+      background: var(--blue);
+      color: #fff;
+      transform: scale(1.08);
+    }
+
+    .profile-mark {
+      position: absolute;
+      right: -12px;
+      top: 22px;
+      padding: 8px 12px;
+      border-radius: 11px;
+      color: #dbeafe;
+      background: #102b54;
+      border: 1px solid rgba(56, 189, 248, .4);
+      font: 700 .7rem ui-monospace, monospace;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, .35);
+      transform: rotate(4deg);
+    }
+
+    .profile-card p, .muted { color: var(--muted); }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      font-size: .8rem;
+      padding: 6px 12px;
+      border-radius: 99px;
+      color: #bfdbfe;
+      background: rgba(59, 130, 246, .14);
+      border: 1px solid rgba(59, 130, 246, .24);
+    }
+
+    /* Section & Cards */
+    .content {
+      padding: 60px 0 85px;
+      min-height: calc(100vh - 140px);
+    }
+
+    .section-head { margin-bottom: 30px; }
+    .section-head .eyebrow { margin-bottom: 8px; }
+
+    h2 {
+      font-size: clamp(1.9rem, 4vw, 2.7rem);
+      letter-spacing: -.7px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .desc {
+      color: var(--muted);
+      max-width: 720px;
+      margin-top: 9px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(14, 22, 39, .86), rgba(10, 16, 30, .78));
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 24px;
+      backdrop-filter: blur(8px);
+    }
+
+    .card h3 {
+      font-size: 1.12rem;
+      margin-bottom: 9px;
+    }
+
+    .card p, .card li { color: var(--muted); }
+
+    .info-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .info-list strong {
+      color: var(--text);
+      display: inline-block;
+      min-width: 115px;
+    }
+
+    /* Skills & Software */
+    .visual-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .visual-heading .symbol {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      color: var(--cyan);
+      border: 1px solid rgba(56, 189, 248, .28);
+      border-radius: 12px;
+      background: rgba(37, 99, 235, .13);
+      font-size: 1.2rem;
+    }
+
+    .section-kicker {
+      color: var(--cyan);
+      font: 700 .7rem ui-monospace, monospace;
+      letter-spacing: 1.5px;
+      margin-bottom: 4px;
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .skill-tile {
+      min-height: 118px;
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(17, 29, 50, .92), rgba(10, 16, 30, .88));
+      transition: transform .2s, border-color .2s, background .2s;
+    }
+
+    .skill-tile:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, .48);
+      background: #12213a;
+    }
+
+    .skill-icon {
+      display: block;
+      color: var(--cyan);
+      font-size: 1.45rem;
+      margin-bottom: 8px;
+    }
+
+    .skill-tile strong {
+      display: block;
+      font-size: .95rem;
+    }
+
+    .skill-tile small {
+      display: block;
+      color: var(--muted);
+      font-size: .78rem;
+      margin-top: 3px;
+    }
+
+    .app-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .app-chip {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      background: rgba(7, 11, 20, .38);
+      border-radius: 12px;
+      color: #dbeafe;
+      font-size: .88rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: all .2s ease;
+    }
+
+    .app-chip:hover {
+      border-color: rgba(56, 189, 248, .45);
+      background: rgba(17, 29, 50, .85);
+      transform: translateY(-2px);
+    }
+
+    .app-chip.active {
+      border-color: var(--cyan);
+      background: rgba(37, 99, 235, .24);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, .22);
+    }
+
+    .app-chip b {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      border-radius: 8px;
+      background: rgba(59, 130, 246, .2);
+      color: #7dd3fc;
+      font-size: .74rem;
+      transition: all .2s ease;
+    }
+
+    .app-chip.active b {
+      background: var(--cyan);
+      color: #070b14;
+    }
+
+    /* Tool Detail Pop-up Modal Styles */
+    .tool-modal-badge-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 14px;
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #7dd3fc;
+      background: rgba(37, 99, 235, .28);
+      border: 1px solid rgba(56, 189, 248, .5);
+      box-shadow: 0 10px 28px rgba(7, 11, 20, .55);
+    }
+
+    .tool-usage-box {
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: rgba(59, 130, 246, .1);
+      border: 1px solid rgba(56, 189, 248, .25);
+      color: #dbeafe;
+      font-size: .88rem;
+      line-height: 1.55;
+    }
+
+    .note {
+      font-size: .86rem;
+      color: #93c5fd !important;
+      margin-top: 14px;
+    }
+
+    /* Experience Timeline */
+    .experience-banner {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 18px;
+      padding: 22px;
+      margin-bottom: 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(56, 189, 248, .25);
+      background: radial-gradient(circle at 0 50%, rgba(37, 99, 235, .24), transparent 45%), var(--panel);
+    }
+
+    .experience-logo {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: #dbeafe;
+      background: linear-gradient(135deg, #2563eb, #0e7490);
+      font-size: 1.35rem;
+      font-weight: 900;
+    }
+
+    .duration {
+      color: #bae6fd;
+      font: 800 .8rem ui-monospace, monospace;
+      border: 1px solid rgba(56, 189, 248, .3);
+      padding: 8px 11px;
+      border-radius: 9px;
+      white-space: nowrap;
+    }
+
+    .timeline {
+      border-left: 2px solid rgba(56, 189, 248, .45);
+      padding-left: 20px;
+      margin-left: 6px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 0 0 8px 8px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--cyan);
+      left: -26px;
+      top: 8px;
+      box-shadow: 0 0 0 5px rgba(56, 189, 248, .12);
+    }
+
+    .timeline-item + .timeline-item { margin-top: 22px; }
+
+    /* Projects & Portfolio Filter */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      border-radius: 99px;
+      border: 1px solid var(--line);
+      background: rgba(14, 22, 39, .75);
+      color: var(--muted);
+      font-size: .86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: rgba(37, 99, 235, .22);
+      border-color: var(--cyan);
+      color: #fff;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .project {
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .25s ease, border-color .25s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, .42);
+    }
+
+    .project.featured {
+      grid-column: 1 / -1;
+    }
+
+    .project.hidden {
+      display: none;
+    }
+
+    .project-art {
+      position: relative;
+      overflow: hidden;
+      min-height: 240px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 28px;
+      background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, .25), transparent 55%), linear-gradient(135deg, #102b54, #0b1220 70%);
+      color: #93c5fd;
+      cursor: pointer;
+    }
+
+    .project.featured .project-art {
+      min-height: 290px;
+    }
+
+    .project-art.poster-theme {
+      background: radial-gradient(circle at 20% 20%, rgba(14, 165, 233, .28), transparent 55%), linear-gradient(135deg, #0f294a, #091326 75%);
+    }
+
+    .project-art.photo-theme {
+      background: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, .28), transparent 55%), linear-gradient(135deg, #112447, #080f1e 75%);
+    }
+
+    .project-art::before {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      border: 1px solid rgba(125, 211, 252, .22);
+      box-shadow: 0 0 0 22px rgba(56, 189, 248, .035), 0 0 0 48px rgba(56, 189, 248, .02);
+      right: 6%;
+      top: -95px;
+      pointer-events: none;
+    }
+
+    .frame-tag {
+      position: absolute;
+      bottom: 14px;
+      left: 18px;
+      z-index: 2;
+      font: 700 .65rem ui-monospace, monospace;
+      letter-spacing: 2px;
+      color: rgba(191, 219, 254, .85);
+    }
+
+    .project-art > div {
+      position: relative;
+      z-index: 2;
+    }
+
+    .project-art .play {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(147, 197, 253, .55);
+      background: rgba(7, 11, 20, .55);
+      font-size: 1.5rem;
+      margin: 0 auto 12px;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .project-art:hover .play {
+      transform: scale(1.08);
+      background: rgba(37, 99, 235, .55);
+      color: #fff;
+    }
+
+    .project-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .project-desc-text {
+      white-space: pre-line;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .project-meta span {
+      font-size: .78rem;
+      color: #bfdbfe;
+      background: rgba(59, 130, 246, .14);
+      padding: 5px 10px;
+      border-radius: 7px;
+    }
+
+    .project-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    /* Lightbox & Pop-up Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(4, 7, 14, .85);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+      animation: fade .22s ease;
+    }
+
+    #uploadModal,
+    #editMetaModal {
+      z-index: 10000;
+      pointer-events: auto;
+    }
+    #uploadModal .modal-box,
+    #uploadModal .modal-body,
+    #uploadModal form,
+    #uploadModal button,
+    #editMetaModal .modal-box,
+    #editMetaModal .modal-body,
+    #editMetaModal form,
+    #editMetaModal button {
+      position: relative;
+      pointer-events: auto;
+    }
+    #uploadModal .modal-box,
+    #editMetaModal .modal-box { position: relative; z-index: 10001; }
+    #uploadModal .actions,
+    #editMetaModal .actions {
+      position: relative;
+      z-index: 10002;
+      pointer-events: auto;
+    }
+    #uploadModal #saveProjectBtn,
+    #editMetaModal #saveMetaBtn {
+      position: relative;
+      z-index: 10003;
+      cursor: pointer;
+      pointer-events: auto !important;
+      touch-action: manipulation;
+    }
+
+    .modal-box {
+      width: min(100%, 640px);
+      background: var(--panel);
+      border: 1px solid rgba(56, 189, 248, .35);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .65);
+    }
+
+    .modal-preview {
+      min-height: 260px;
+      padding: 36px 24px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, .3), transparent 65%), linear-gradient(135deg, #102b54, #080d18 80%);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, .2);
+      background: rgba(7, 11, 20, .7);
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: grid;
+      place-items: center;
+    }
+
+    .modal-close:hover {
+      background: var(--blue);
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .modal-body h3 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .modal-body p {
+      color: var(--muted);
+      margin-bottom: 16px;
+      white-space: pre-line;
+    }
+
+    /* Upload Karya Styles */
+    .section-head-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .form-label {
+      display: block;
+      font-size: .85rem;
+      font-weight: 600;
+      color: #dbeafe;
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 11px;
+      border: 1px solid var(--line);
+      background: rgba(7, 11, 20, .75);
+      color: var(--text);
+      font: inherit;
+      font-size: .92rem;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, .15);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 92px;
+    }
+
+    .dropzone {
+      border: 2px dashed rgba(56, 189, 248, .35);
+      border-radius: 14px;
+      padding: 22px 16px;
+      text-align: center;
+      background: rgba(14, 22, 39, .55);
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+    .dropzone:hover,
+    .dropzone.dragover {
+      border-color: var(--cyan);
+      background: rgba(37, 99, 235, .16);
+    }
+
+    .dropzone-preview {
+      margin-top: 12px;
+      border-radius: 10px;
+      overflow: hidden;
+      max-height: 180px;
+      display: none;
+      background: #050810;
+      border: 1px solid var(--line);
+    }
+
+    .dropzone-preview img,
+    .dropzone-preview video {
+      width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+      display: block;
+      margin: auto;
+    }
+
+    .project-media-cover {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      opacity: .92;
+      transition: transform .35s ease;
+    }
+
+    .project-art:hover .project-media-cover {
+      transform: scale(1.04);
+    }
+
+    .project-art.has-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(7, 11, 20, .86) 8%, rgba(7, 11, 20, .2) 55%, rgba(7, 11, 20, .4) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .btn-danger-sm {
+      padding: 9px 13px;
+      border-radius: 10px;
+      font-size: .82rem;
+      font-weight: 600;
+      border: 1px solid rgba(248, 113, 113, .35);
+      background: rgba(239, 68, 68, .12);
+      color: #fca5a5;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+    .btn-danger-sm:hover {
+      background: rgba(239, 68, 68, .28);
+      border-color: #f87171;
+      color: #fff;
+    }
+
+    .modal-media-container {
+      width: 100%;
+      max-height: 310px;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      display: none;
+      background: #04070e;
+      border: 1px solid rgba(56, 189, 248, .25);
+    }
+
+    .modal-media-container img,
+    .modal-media-container video {
+      width: 100%;
+      max-height: 310px;
+      object-fit: contain;
+      display: block;
+      margin: auto;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 12000;
+      background: #0f294a;
+      color: #eef4ff;
+      border: 1px solid rgba(56, 189, 248, .5);
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: .9rem;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .45);
+      transform: translateY(100px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all .28s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      padding: 24px 0;
+      text-align: center;
+      font-size: .88rem;
+      background: rgba(6, 10, 18, .65);
+      backdrop-filter: blur(8px);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 46px 0;
+        gap: 36px;
+      }
+
+      .profile-card {
+        max-width: 420px;
+        width: 100%;
+        margin: auto;
+      }
+
+      .grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-btn { display: block; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        width: 100%;
+        padding: 15px 4%;
+        background: #0a1020;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .nav-links.open { display: flex; }
+      .nav-btn { width: 100%; text-align: left; }
+      .content { padding: 45px 0 65px; }
+
+      .skill-grid,
+      .app-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .experience-banner { grid-template-columns: auto 1fr; }
+      .duration { grid-column: 2; justify-self: start; }
+      .profile-card::before { width: 210px; height: 210px; }
+      .profile-card::after { width: 245px; height: 245px; }
+    }
+
+    @media (max-width: 420px) {
+      .quick-stats { gap: 8px; }
+      .stat { padding: 10px 8px; }
+      .stat strong { font-size: 1.1rem; }
+      .stat span { font-size: .68rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+      .reveal-item {
+        opacity: 1 !important;
+        filter: none !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-ambient" aria-hidden="true">
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-ring"></div>
+  </div>
+
+  <header>
+    <nav class="container" aria-label="Navigasi utama">
+      <a class="logo" href="#home" data-go="home">YOHANES<span>.</span></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Buka navigasi" aria-expanded="false">☰ Menu</button>
+      <ul class="nav-links" id="navLinks">
+        <li><button class="nav-btn active" data-go="home">Beranda</button></li>
+        <li><button class="nav-btn" data-go="about">Tentang Saya</button></li>
+        <li><button class="nav-btn" data-go="skills">Keahlian</button></li>
+        <li><button class="nav-btn" data-go="experience">Pengalaman</button></li>
+        <li><button class="nav-btn" data-go="projects">Karya</button></li>
+        <li><button class="nav-btn" data-go="contact">Kontak</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- BERANDA -->
+    <section class="page active" id="home">
+      <div class="container hero">
+        <div class="hero-copy">
+          <div class="eyebrow">Pelajar DKV · Creative Learner</div>
+          <h1>Halo, saya<br><span>Yohanes Saragih.</span></h1>
+          <p class="lead">Saya adalah pelajar Desain Komunikasi Visual yang tertarik pada desain poster, editing video, fotografi, serta animasi 2D dan 3D. Saya senang mengembangkan kreativitas melalui tugas sekolah, proyek, dan pengalaman magang.</p>
+          <div class="actions">
+            <button class="btn primary" data-go="projects">Lihat Karya Saya <span aria-hidden="true">→</span></button>
+            <button class="btn" data-go="about">Kenali Saya</button>
+          </div>
+          <p class="page-hint">Pilih menu di atas untuk membuka bagian portofolio yang kamu inginkan.</p>
+          <div class="quick-stats" aria-label="Ringkasan portofolio">
+            <div class="stat"><strong>06</strong><span>Bidang keahlian</span></div>
+            <div class="stat"><strong>06</strong><span>Aplikasi kreatif</span></div>
+            <div class="stat"><strong>03</strong><span>Bulan magang</span></div>
+          </div>
+        </div>
+
+        <aside class="profile-card hero-visual">
+          <div class="profile-mark">DKV / CREATIVE</div>
+          <div class="avatar-wrap">
+            <div class="avatar" id="avatar"><span>YS</span></div>
+            <label for="avatarInput" class="avatar-upload-btn" title="Pratinjau foto profil" aria-label="Ganti pratinjau foto profil">📷</label>
+            <input type="file" id="avatarInput" accept="image/*" hidden>
+          </div>
+          <h2 style="font-size:1.35rem">Yohanes Saragih</h2>
+          <p>Siswa XII · SMKS Asoka Singkawang</p>
+          <div class="tag-row">
+            <span class="tag">Desain Grafis</span>
+            <span class="tag">Video Editing</span>
+            <span class="tag">Animasi</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- TENTANG SAYA -->
+    <section class="page" id="about">
+      <div class="container content">
+        <div class="section-head">
+          <div class="eyebrow">Tentang Saya</div>
+          <h2>Perjalanan dan profil saya</h2>
+          <p class="desc">Saya berusaha menjadi pribadi yang disiplin, bertanggung jawab, jujur, dan terbuka terhadap arahan maupun kritik yang membangun.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>Profil Singkat</h3>
+            <ul class="info-list">
+              <li><strong>Nama</strong> Yohanes Saragih</li>
+              <li><strong>Pendidikan</strong> XII DKV</li>
+              <li><strong>Sekolah</strong> SMKS Asoka Singkawang</li>
+              <li><strong>Minat</strong> Desain, video, fotografi, animasi</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Prinsip Saya</h3>
+            <p>Saya percaya kemampuan dapat terus berkembang melalui latihan, kedisiplinan, kemauan belajar, dan keberanian mencoba hal baru. Saya siap bekerja secara mandiri maupun bersama tim.</p>
+          </article>
+          <article class="card">
+            <h3>Tujuan dan Cita-cita</h3>
+            <p>Saya bercita-cita menjadi bagian dari TNI Angkatan Udara. Saya ingin mempersiapkan diri dengan membangun kedisiplinan, tanggung jawab, serta kesiapan diri melalui cara yang sehat dan teratur.</p>
+          </article>
+          <article class="card">
+            <h3>Pendidikan</h3>
+            <p>SMKS Asoka Singkawang<br>Kelas XII — Desain Komunikasi Visual (DKV)</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- KEAHLIAN -->
+    <section class="page" id="skills">
+      <div class="container content">
+        <div class="section-head">
+          <div class="eyebrow">Keahlian</div>
+          <h2>Kemampuan yang saya kembangkan</h2>
+          <p class="desc">Berikut beberapa bidang yang saya pelajari dan kembangkan melalui kegiatan sekolah, latihan, dan proyek.</p>
+        </div>
+
+        <div class="visual-heading">
+          <span class="symbol">✦</span>
+          <div>
+            <div class="section-kicker">CREATIVE TOOLKIT</div>
+            <h3>Bidang Keahlian</h3>
+          </div>
+        </div>
+
+        <div class="skill-grid">
+          <div class="skill-tile"><span class="skill-icon">▧</span><strong>Desain Poster</strong><small>Visual & tata letak</small></div>
+          <div class="skill-tile"><span class="skill-icon">▶</span><strong>Editing Video</strong><small>Penyuntingan visual</small></div>
+          <div class="skill-tile"><span class="skill-icon">◎</span><strong>Fotografi</strong><small>Pengambilan gambar</small></div>
+          <div class="skill-tile"><span class="skill-icon">◫</span><strong>Animasi 2D</strong><small>Gerak dua dimensi</small></div>
+          <div class="skill-tile"><span class="skill-icon">◇</span><strong>Animasi 3D</strong><small>Objek tiga dimensi</small></div>
+          <div class="skill-tile"><span class="skill-icon">⟷</span><strong>Kerja Sama Tim</strong><small>Kolaborasi dan komunikasi</small></div>
+        </div>
+
+        <article class="card" style="margin-top:24px">
+          <div class="visual-heading">
+            <span class="symbol">⌘</span>
+            <div>
+              <div class="section-kicker">SOFTWARE</div>
+              <h3>Aplikasi Kreatif</h3>
+            </div>
+          </div>
+          <div class="app-list" id="appList" role="group" aria-label="Pilih aplikasi kreatif untuk melihat keterangan">
+            <button type="button" class="app-chip" data-tool="canva"><b>Ca</b>Canva</button>
+            <button type="button" class="app-chip" data-tool="capcut"><b>CC</b>CapCut</button>
+            <button type="button" class="app-chip" data-tool="photoshop"><b>Ps</b>Photoshop</button>
+            <button type="button" class="app-chip" data-tool="premiere"><b>Pr</b>Premiere Pro</button>
+            <button type="button" class="app-chip" data-tool="flipaclip"><b>Fl</b>FlipaClip</button>
+            <button type="button" class="app-chip" data-tool="blender"><b>Bl</b>Blender</button>
+          </div>
+
+          <p class="note">Klik salah satu aplikasi di atas untuk membuka jendela pop-up keterangan dan penggunaannya dalam proses belajar maupun pengerjaan karya.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PENGALAMAN -->
+    <section class="page" id="experience">
+      <div class="container content">
+        <div class="section-head">
+          <div class="eyebrow">Pengalaman</div>
+          <h2>Pengalaman belajar dan praktik</h2>
+          <p class="desc">Pengalaman yang membantu saya mengembangkan kemampuan desain, produksi visual, dan kerja sama.</p>
+        </div>
+
+        <div class="experience-banner">
+          <div class="experience-logo">TG</div>
+          <div>
+            <div class="section-kicker">PENGALAMAN MAGANG</div>
+            <h3>Teknik Graphia</h3>
+            <p class="muted">Desain dan produksi spanduk</p>
+          </div>
+          <div class="duration">3 BULAN</div>
+        </div>
+
+        <div class="card">
+          <div class="timeline">
+            <div class="timeline-item">
+              <h3>Magang — Teknik Graphia</h3>
+              <p class="muted">Durasi: 3 bulan</p>
+              <p style="margin-top:8px">Memiliki pengalaman dalam bidang desain dan produksi spanduk selama masa magang. Pengalaman ini memberi kesempatan untuk mengenal proses pengerjaan desain dan produksi secara langsung.</p>
+            </div>
+            <div class="timeline-item">
+              <h3>Proyek dan Tugas Sekolah</h3>
+              <p>Memiliki pengalaman mengedit video, mengolah foto, dan membuat desain untuk berbagai tugas sekolah.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KARYA / PORTOFOLIO -->
+    <section class="page" id="projects">
+      <div class="container content">
+        <div class="section-head-row">
+          <div>
+            <div class="eyebrow">Portofolio</div>
+            <h2>Karya pilihan saya</h2>
+            <p class="desc">Klik tanda <strong>＋</strong> untuk memasang file karya, lalu klik <strong>Edit Nama &amp; Keterangan</strong> untuk memberi judul dan penjelasan yang sesuai dengan karya kamu.</p>
+          </div>
+          <button type="button" class="btn primary" id="openUploadModalBtn">+ Upload Karya</button>
+        </div>
+
+        <div class="filter-bar" role="tablist" aria-label="Filter kategori karya">
+          <button class="filter-btn active" data-filter="all">Semua Karya</button>
+          <button class="filter-btn" data-filter="video">Video & Cinematic</button>
+          <button class="filter-btn" data-filter="poster">Desain Poster</button>
+          <button class="filter-btn" data-filter="photo">Fotografi</button>
+          <button class="filter-btn" data-filter="animation">Animasi</button>
+        </div>
+
+        <!-- Input file tersembunyi khusus upload langsung ke slot kartu -->
+        <input type="file" id="slotDirectFileInput" accept="image/*,video/*" hidden>
+
+        <div class="projects-grid" id="projectsGrid">
+          <!-- Slot 1: Video -->
+          <article class="card project featured" data-category="video" data-slot-id="slot_video">
+            <div class="project-art" data-slot-art>
+              <span class="frame-tag">YOUR WORK / VIDEO</span>
+              <div>
+                <div class="play" aria-hidden="true">＋</div>
+                <strong style="font-size:1.35rem; color:#fff">Tambahkan Video Cinematic</strong>
+                <p style="color:#bfdbfe; margin-top:4px">Klik tanda ＋ untuk langsung memilih video dari perangkat</p>
+              </div>
+            </div>
+            <div class="project-content">
+              <div>
+                <h3 data-slot-heading>Video & Cinematic</h3>
+                <p class="project-desc-text" data-slot-desc>Tempat untuk menampilkan video hasil karya sendiri. Klik tanda ＋ untuk memilih video dari laptop atau HP agar langsung tampil di sini.</p>
+                <div class="project-meta">
+                  <span>Video / Cinematic</span>
+                  <span>MP4 / WEBM</span>
+                  <span>Upload Langsung</span>
+                </div>
+              </div>
+              <div class="project-actions" data-slot-actions>
+                <button class="btn primary" type="button" data-slot-upload="slot_video">＋ Upload Video di Sini</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slot 2: Poster -->
+          <article class="card project" data-category="poster" data-slot-id="slot_poster">
+            <div class="project-art poster-theme" data-slot-art>
+              <span class="frame-tag">FRAME 02 / GRAPHIC DESIGN</span>
+              <div>
+                <div class="play" aria-hidden="true">＋</div>
+                <strong style="font-size:1.2rem; color:#fff">Desain Poster & Spanduk</strong>
+                <p style="color:#bfdbfe; margin-top:4px">Klik tanda ＋ untuk memasang poster di sini</p>
+              </div>
+            </div>
+            <div class="project-content">
+              <div>
+                <h3 data-slot-heading>Desain Poster & Media Cetak</h3>
+                <p class="project-desc-text" data-slot-desc>Slot untuk poster dan desain spanduk. Klik tanda ＋ untuk langsung memasang file gambar karya di kotak ini.</p>
+                <div class="project-meta">
+                  <span>Desain Poster</span>
+                  <span>Photoshop & Canva</span>
+                </div>
+              </div>
+              <div class="project-actions" data-slot-actions>
+                <button class="btn primary" type="button" data-slot-upload="slot_poster">＋ Upload Poster di Sini</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slot 3: Fotografi -->
+          <article class="card project" data-category="photo" data-slot-id="slot_photo">
+            <div class="project-art photo-theme" data-slot-art>
+              <span class="frame-tag">FRAME 03 / PHOTOGRAPHY</span>
+              <div>
+                <div class="play" aria-hidden="true">＋</div>
+                <strong style="font-size:1.2rem; color:#fff">Dokumentasi & Fotografi</strong>
+                <p style="color:#bfdbfe; margin-top:4px">Klik tanda ＋ untuk memasang foto di sini</p>
+              </div>
+            </div>
+            <div class="project-content">
+              <div>
+                <h3 data-slot-heading>Dokumentasi & Fotografi</h3>
+                <p class="project-desc-text" data-slot-desc>Slot untuk hasil fotografi. Klik tanda ＋ untuk langsung memasang hasil jepretan di kotak ini.</p>
+                <div class="project-meta">
+                  <span>Fotografi</span>
+                  <span>Color Grading</span>
+                </div>
+              </div>
+              <div class="project-actions" data-slot-actions>
+                <button class="btn primary" type="button" data-slot-upload="slot_photo">＋ Upload Foto di Sini</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAK -->
+    <section class="page" id="contact">
+      <div class="container content">
+        <div class="section-head">
+          <div class="eyebrow">Kontak</div>
+          <h2>Mari terhubung</h2>
+          <p class="desc">Terima kasih sudah mengunjungi website portofolio saya. Silakan hubungi saya melalui WhatsApp atau email untuk diskusi maupun kolaborasi.</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <div class="visual-heading">
+              <span class="symbol">💬</span>
+              <div>
+                <div class="section-kicker">WHATSAPP</div>
+                <h3>Chat langsung via WhatsApp</h3>
+              </div>
+            </div>
+            <p class="muted" id="waText">082352119651</p>
+            <div class="actions">
+              <a class="btn primary" href="https://wa.me/6282352119651?text=Halo%20Yohanes%2C%20saya%20melihat%20portofolio%20kamu." target="_blank" rel="noopener noreferrer">Chat WhatsApp ↗</a>
+              <button class="btn" id="copyWaBtn" type="button">Salin Nomor</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="visual-heading">
+              <span class="symbol">✉</span>
+              <div>
+                <div class="section-kicker">EMAIL</div>
+                <h3>Hubungi melalui email</h3>
+              </div>
+            </div>
+            <p class="muted" id="emailText">yohanessaragih004@gmail.com</p>
+            <div class="actions">
+              <a class="btn primary" href="mailto:yohanessaragih004@gmail.com?subject=Kontak%20Portofolio%20Yohanes">Kirim Email ↗</a>
+              <button class="btn" id="copyEmailBtn" type="button">Salin Email</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="visual-heading">
+              <span class="symbol">📄</span>
+              <div>
+                <div class="section-kicker">DOKUMEN</div>
+                <h3>Curriculum Vitae</h3>
+              </div>
+            </div>
+            <p class="muted">Lihat atau unduh ringkasan Curriculum Vitae (CV) saya melalui folder Google Drive.</p>
+            <div class="actions">
+              <a class="btn primary" href="" target="_blank" rel="noopener noreferrer">Lihat CV di Google Drive ↗</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="visual-heading">
+              <span class="symbol">◎</span>
+              <div>
+                <div class="section-kicker">SOCIAL</div>
+                <h3>Media sosial & GitHub</h3>
+              </div>
+            </div>
+            <p class="muted">Segera hadir. Tautan media sosial dan profil kreatif akan ditambahkan setelah siap dibagikan.</p>
+            <div class="project-meta">
+              <span>Coming Soon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div class="modal-backdrop" id="lightboxModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <div class="modal-preview">
+        <button class="modal-close" id="closeModalBtn" aria-label="Tutup pratinjau">✕</button>
+        <div style="width: 100%;">
+          <div class="modal-media-container" id="modalMediaContainer"></div>
+          <div class="play" id="modalIcon" style="width:74px;height:74px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(147,197,253,.55);background:rgba(7,11,20,.55);font-size:1.7rem;margin:0 auto 12px;color:#93c5fd;">▶</div>
+          <span class="tag" id="modalMeta">Kategori</span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <h3 id="modalTitle">Judul Karya</h3>
+        <p id="modalDesc">Deskripsi karya.</p>
+        <div class="actions" style="margin-top:16px">
+          <a class="btn primary" id="modalDriveLink" href="#" target="_blank" rel="noopener noreferrer">Buka Folder Google Drive ↗</a>
+          <button class="btn" id="closeModalBtn2" type="button">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upload Karya Modal (Untuk menambah kartu karya ekstra) -->
+  <div class="modal-backdrop" id="uploadModal" role="dialog" aria-modal="true" aria-labelledby="uploadModalTitle">
+    <div class="modal-box" style="max-height: 92vh; overflow-y: auto;">
+      <div class="modal-body" style="padding: 26px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div>
+            <div class="section-kicker">PORTOFOLIO CREATOR</div>
+            <h3 id="uploadModalTitle" style="margin:0;">Tambah Kartu Karya Baru</h3>
+          </div>
+          <button class="modal-close" id="closeUploadModalBtn" type="button" style="position:static;" aria-label="Tutup form upload">✕</button>
+        </div>
+
+        <form id="uploadProjectForm">
+          <div class="form-group">
+            <label class="form-label" for="projectTitleInput">Nama / Judul Karya <span style="color:#38bdf8">*</span></label>
+            <input type="text" id="projectTitleInput" class="form-control" placeholder="Contoh: Poster Event Sekolah / Animasi 3D Meja" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="projectCategoryInput">Kategori Karya</label>
+            <select id="projectCategoryInput" class="form-control">
+              <option value="poster">Desain Poster</option>
+              <option value="video">Video / Cinematic</option>
+              <option value="photo">Fotografi</option>
+              <option value="animation">Animasi</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Upload File Karya (langsung dari perangkat)</label>
+            <div class="dropzone" id="uploadDropzone">
+              <div style="font-size:1.5rem; margin-bottom:4px;">📁</div>
+              <strong style="font-size:.9rem; color:#eef4ff;">Klik untuk memilih file atau seret ke sini</strong>
+              <p style="font-size:.78rem; color:var(--muted); margin:4px 0 0;">Pilih gambar JPG, PNG, WEBP atau video MP4/WEBM dari laptop/komputer</p>
+              <input type="file" id="projectFileInput" accept="image/*,video/*" hidden>
+              <div class="dropzone-preview" id="dropzonePreview"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="projectDescInput">Keterangan Karya</label>
+            <textarea id="projectDescInput" class="form-control" placeholder="Tuliskan keterangan karya: konsep, aplikasi yang digunakan (Photoshop, Premiere Pro, Blender, dll.), atau tujuan pembuatan..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <p class="note" style="margin-top:0">File akan ditampilkan langsung di kartu karya dan pop-up pratinjau. Tidak perlu tautan Google Drive.</p>
+            <input type="hidden" id="projectLinkInput" value="">
+          </div>
+
+          <div class="actions" style="margin-top: 20px; justify-content: flex-end;">
+            <button type="button" class="btn" id="cancelUploadBtn">Batal</button>
+            <button type="submit" id="saveProjectBtn" class="btn primary">Simpan & Tampilkan Karya</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Nama & Keterangan Karya Modal -->
+  <div class="modal-backdrop" id="editMetaModal" role="dialog" aria-modal="true" aria-labelledby="editMetaModalTitle">
+    <div class="modal-box" style="max-height: 92vh; overflow-y: auto;">
+      <div class="modal-body" style="padding: 26px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div>
+            <div class="section-kicker">DETAIL KARYA</div>
+            <h3 id="editMetaModalTitle" style="margin:0;">Edit Nama &amp; Keterangan Karya</h3>
+          </div>
+          <button class="modal-close" id="closeEditMetaBtn" type="button" style="position:static;" aria-label="Tutup form edit karya">✕</button>
+        </div>
+
+        <form id="editMetaForm">
+          <div class="form-group">
+            <label class="form-label" for="editWorkNameInput">Nama Karya <span style="color:#38bdf8">*</span></label>
+            <input type="text" id="editWorkNameInput" class="form-control" placeholder="Masukkan nama karya yang ingin ditampilkan" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="editWorkDescInput">Keterangan Karya</label>
+            <textarea id="editWorkDescInput" class="form-control" placeholder="Tuliskan keterangan sesuai karya kamu (misal: aplikasi yang dipakai, konsep visual, lokasi/waktu pembuatan)..."></textarea>
+          </div>
+
+          <div class="actions" style="margin-top: 20px; justify-content: flex-end;">
+            <button type="button" class="btn" id="cancelEditMetaBtn">Batal</button>
+            <button type="submit" id="saveMetaBtn" class="btn primary">Simpan Perubahan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tool Pop-up Modal -->
+  <div class="modal-backdrop" id="toolModal" role="dialog" aria-modal="true" aria-labelledby="toolModalTitle">
+    <div class="modal-box">
+      <div class="modal-preview" style="min-height: 215px;">
+        <button class="modal-close" id="closeToolModalBtn" type="button" aria-label="Tutup pop-up aplikasi">✕</button>
+        <div>
+          <div class="tool-modal-badge-icon" id="toolModalCode">Ca</div>
+          <span class="tag" id="toolModalCategory">Kategori Aplikasi</span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <h3 id="toolModalTitle">Nama Aplikasi</h3>
+        <p id="toolModalDesc" style="margin-bottom: 14px;">Deskripsi lengkap mengenai aplikasi kreatif.</p>
+        <div class="tool-usage-box" id="toolModalUsage">Contoh penggunaan dalam proyek DKV.</div>
+        <div class="actions" style="margin-top: 18px; justify-content: flex-end;">
+          <button class="btn primary" id="closeToolModalBtn2" type="button">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast" role="status" aria-live="polite">Berhasil!</div>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Yohanes Saragih. Dibuat dengan semangat untuk terus belajar.</div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        // Navigasi Halaman SPA
+        const pages = [...document.querySelectorAll('.page')];
+        const navButtons = [...document.querySelectorAll('[data-go]')];
+        const navLinks = document.getElementById('navLinks');
+        const menuBtn = document.getElementById('menuBtn');
+
+        // Sistem Scroll-Reveal
+        const REVEAL_SELECTOR = [
+          '.hero-copy',
+          '.hero-visual',
+          '.stat',
+          '.section-head',
+          '.section-head-row',
+          '.visual-heading',
+          '.card',
+          '.skill-tile',
+          '.app-chip',
+          '.experience-banner',
+          '.timeline-item',
+          '.filter-bar',
+          '.project'
+        ].join(', ');
+
+        let revealObserver = null;
+        const supportsIntersectionObserver = 'IntersectionObserver' in window;
+        const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (supportsIntersectionObserver && !prefersReducedMotion) {
+          revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          }, {
+            root: null,
+            threshold: 0.12,
+            rootMargin: '0px 0px -36px 0px'
+          });
+        }
+
+        function setupScrollRevealForPage(pageEl, resetAnimation = true) {
+          if (!pageEl) return;
+          const targets = [...pageEl.querySelectorAll(REVEAL_SELECTOR)];
+
+          targets.forEach((el, index) => {
+            if (!revealObserver) {
+              el.classList.remove('reveal-item');
+              el.classList.add('is-visible');
+              return;
+            }
+
+            if (resetAnimation) {
+              revealObserver.unobserve(el);
+              el.classList.remove('is-visible');
+              el.classList.add('reveal-item');
+              const staggerDelay = (index % 6) * 65;
+              el.style.setProperty('--reveal-delay', `${staggerDelay}ms`);
+            } else if (!el.classList.contains('is-visible')) {
+              el.classList.add('reveal-item');
+            }
+          });
+
+          if (revealObserver) {
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                targets.forEach(el => {
+                  if (!el.classList.contains('is-visible')) {
+                    revealObserver.observe(el);
+                  }
+                });
+              });
+            });
+          }
+        }
+
+        function showPage(name, updateHistory = true) {
+          const target = document.getElementById(name);
+          if (!target) return;
+
+          pages.forEach(page => page.classList.toggle('active', page.id === name));
+          document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.go === name);
+          });
+
+          if (navLinks) navLinks.classList.remove('open');
+          if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+
+          setupScrollRevealForPage(target, true);
+
+          if (updateHistory && location.hash !== '#' + name) {
+            history.pushState({ page: name }, '', '#' + name);
+          }
+        }
+
+        navButtons.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const dest = btn.dataset.go;
+            if (dest) showPage(dest);
+          });
+        });
+
+        if (menuBtn && navLinks) {
+          menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = navLinks.classList.toggle('open');
+            menuBtn.setAttribute('aria-expanded', String(isOpen));
+          });
+        }
+
+        window.addEventListener('popstate', () => {
+          const name = location.hash.slice(1) || 'home';
+          showPage(name, false);
+        });
+
+        // Toast Helper
+        const toastEl = document.getElementById('toast');
+        let toastTimer;
+        function showToast(message) {
+          if (!toastEl) return;
+          toastEl.textContent = message;
+          toastEl.classList.add('show');
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+        }
+
+        // Data & Pop-up Modal Keterangan Aplikasi Kreatif (Tools)
+        const toolsData = {
+          canva: {
+            code: 'Ca',
+            name: 'Canva',
+            category: 'Desain Grafis & Tata Letak Cepat',
+            desc: 'Platform desain grafis berbasis visual untuk menyusun tata letak poster, infografis, dan materi publikasi dengan tipografi serta elemen visual yang rapi.',
+            usage: 'Penggunaan DKV: Digunakan untuk merancang konsep poster kegiatan sekolah, layout cepat, dan variasi desain grafis.'
+          },
+          capcut: {
+            code: 'CC',
+            name: 'CapCut',
+            category: 'Mobile & Short Video Editing',
+            desc: 'Aplikasi penyuntingan video yang praktis dan responsif untuk memotong klip, menyusun transisi dinamis, efek visual, serta sinkronisasi audio.',
+            usage: 'Penggunaan DKV: Digunakan untuk mengedit video pendek, konten dokumentasi, serta penyuntingan cepat tugas video.'
+          },
+          photoshop: {
+            code: 'Ps',
+            name: 'Adobe Photoshop',
+            category: 'Photo Retouching & Manipulasi Poster',
+            desc: 'Perangkat lunak standar industri untuk pengolahan foto digital, seleksi objek presisi, koreksi warna, dan manipulasi grafis berlapis.',
+            usage: 'Penggunaan DKV: Digunakan untuk retouching hasil fotografi, pembuatan poster visual, serta persiapan desain cetak dan spanduk.'
+          },
+          premiere: {
+            code: 'Pr',
+            name: 'Adobe Premiere Pro',
+            category: 'Professional Multi-Track Video Editing',
+            desc: 'Aplikasi penyuntingan video profesional berbasis timeline multi-track dengan kontrol penuh pada transisi, audio mixing, dan color grading.',
+            usage: 'Penggunaan DKV: Digunakan untuk merangkai proyek video sinematik seperti Cinematic Model dan tugas produksi video sekolah.'
+          },
+          flipaclip: {
+            code: 'Fl',
+            name: 'FlipaClip',
+            category: 'Frame-by-Frame 2D Animation',
+            desc: 'Aplikasi pembuatan animasi 2D tradisional berbasis frame-by-frame dengan fitur onion skin dan layer untuk menggambar pergerakan karakter secara bertahap.',
+            usage: 'Penggunaan DKV: Digunakan untuk melatih prinsip dasar gerak (motion) dan membuat sketsa animasi 2D.'
+          },
+          blender: {
+            code: 'Bl',
+            name: 'Blender',
+            category: '3D Modeling & Basic 3D Animation',
+            desc: 'Perangkat lunak open-source untuk pembuatan objek 3D (modeling), pemberian material, pencahayaan, rendering, serta animasi tiga dimensi.',
+            usage: 'Penggunaan DKV: Digunakan untuk mempelajari dasar pemodelan bentuk 3D dan eksplorasi animasi tiga dimensi.'
+          }
+        };
+
+        const appChips = [...document.querySelectorAll('.app-chip[data-tool]')];
+        const toolModal = document.getElementById('toolModal');
+        const toolModalCode = document.getElementById('toolModalCode');
+        const toolModalCategory = document.getElementById('toolModalCategory');
+        const toolModalTitle = document.getElementById('toolModalTitle');
+        const toolModalDesc = document.getElementById('toolModalDesc');
+        const toolModalUsage = document.getElementById('toolModalUsage');
+
+        function openToolModal(key) {
+          const info = toolsData[key];
+          if (!info || !toolModal) return;
+
+          appChips.forEach(c => c.classList.toggle('active', c.dataset.tool === key));
+
+          if (toolModalCode) toolModalCode.textContent = info.code;
+          if (toolModalCategory) toolModalCategory.textContent = info.category;
+          if (toolModalTitle) toolModalTitle.textContent = info.name;
+          if (toolModalDesc) toolModalDesc.textContent = info.desc;
+          if (toolModalUsage) toolModalUsage.textContent = info.usage;
+
+          toolModal.classList.add('open');
+        }
+
+        function closeToolModal() {
+          if (!toolModal) return;
+          toolModal.classList.remove('open');
+          appChips.forEach(c => c.classList.remove('active'));
+        }
+
+        appChips.forEach(chip => {
+          chip.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            openToolModal(chip.dataset.tool);
+          });
+        });
+
+        const closeToolModalBtn = document.getElementById('closeToolModalBtn');
+        const closeToolModalBtn2 = document.getElementById('closeToolModalBtn2');
+        if (closeToolModalBtn) closeToolModalBtn.addEventListener('click', closeToolModal);
+        if (closeToolModalBtn2) closeToolModalBtn2.addEventListener('click', closeToolModal);
+        if (toolModal) {
+          toolModal.addEventListener('click', (e) => {
+            if (e.target === toolModal) closeToolModal();
+          });
+        }
+
+        // Helper Salin Teks ke Clipboard
+        function copyTextToClipboard(text, successMsg, fallbackMsg) {
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(() => {
+              showToast(successMsg);
+            }).catch(() => {
+              fallbackCopy(text, successMsg, fallbackMsg);
+            });
+          } else {
+            fallbackCopy(text, successMsg, fallbackMsg);
+          }
+        }
+
+        function fallbackCopy(text, successMsg, fallbackMsg) {
+          const tempInput = document.createElement('input');
+          tempInput.value = text;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          try {
+            document.execCommand('copy');
+            showToast(successMsg);
+          } catch (err) {
+            showToast(fallbackMsg);
+          }
+          document.body.removeChild(tempInput);
+        }
+
+        const copyWaBtn = document.getElementById('copyWaBtn');
+        if (copyWaBtn) {
+          copyWaBtn.addEventListener('click', () => {
+            const waNumber = '082352119651';
+            copyTextToClipboard(waNumber, 'Nomor WhatsApp berhasil disalin!', 'WhatsApp: ' + waNumber);
+          });
+        }
+
+        const copyEmailBtn = document.getElementById('copyEmailBtn');
+        if (copyEmailBtn) {
+          copyEmailBtn.addEventListener('click', () => {
+            const email = 'yohanessaragih004@gmail.com';
+            copyTextToClipboard(email, 'Alamat email berhasil disalin!', 'Email: ' + email);
+          });
+        }
+
+        // Pratinjau Ganti Foto Profil Lokal
+        const avatarInput = document.getElementById('avatarInput');
+        const avatarBox = document.getElementById('avatar');
+        if (avatarInput && avatarBox) {
+          avatarInput.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+              avatarBox.innerHTML = `<img src="${ev.target.result}" alt="Yohanes Saragih">`;
+              showToast('Pratinjau foto profil diperbarui');
+            };
+            reader.readAsDataURL(file);
+          });
+        }
+
+        // Filter Kategori Karya
+        const filterBtns = [...document.querySelectorAll('.filter-btn')];
+        const projectsGrid = document.getElementById('projectsGrid');
+        let activeFilter = 'all';
+
+        function applyProjectFilter() {
+          const allCards = [...document.querySelectorAll('.project')];
+          allCards.forEach(card => {
+            const match = activeFilter === 'all' || card.dataset.category === activeFilter;
+            card.classList.toggle('hidden', !match);
+          });
+        }
+
+        filterBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeFilter = btn.dataset.filter || 'all';
+            applyProjectFilter();
+          });
+        });
+
+        // Lightbox Modal Karya
+        const lightboxModal = document.getElementById('lightboxModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMeta = document.getElementById('modalMeta');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalMediaContainer = document.getElementById('modalMediaContainer');
+        const modalDriveLink = document.getElementById('modalDriveLink');
+
+        window.openLightbox = function(title, meta, desc, icon, driveUrl, mediaUrl = '', mediaType = '') {
+          if (!lightboxModal) return;
+          if (modalTitle) modalTitle.textContent = title;
+          if (modalMeta) modalMeta.textContent = meta;
+          if (modalDesc) modalDesc.textContent = desc;
+
+          if (modalMediaContainer && modalIcon) {
+            modalMediaContainer.innerHTML = '';
+            if (mediaUrl && mediaType === 'image') {
+              const img = document.createElement('img');
+              img.src = mediaUrl;
+              img.alt = title;
+              modalMediaContainer.appendChild(img);
+              modalMediaContainer.style.display = 'block';
+              modalIcon.style.display = 'none';
+            } else if (mediaUrl && mediaType === 'video') {
+              const vid = document.createElement('video');
+              vid.src = mediaUrl;
+              vid.controls = true;
+              vid.playsInline = true;
+              modalMediaContainer.appendChild(vid);
+              modalMediaContainer.style.display = 'block';
+              modalIcon.style.display = 'none';
+            } else {
+              modalMediaContainer.style.display = 'none';
+              modalIcon.style.display = 'grid';
+              modalIcon.textContent = icon;
+            }
+          }
+
+          if (modalDriveLink) {
+            if (driveUrl) {
+              modalDriveLink.href = driveUrl;
+              modalDriveLink.textContent = 'Buka Tautan Karya ↗';
+              modalDriveLink.style.display = 'inline-flex';
+            } else {
+              modalDriveLink.style.display = 'none';
+            }
+          }
+
+          lightboxModal.classList.add('open');
+        };
+
+        function closeLightbox() {
+          if (!lightboxModal) return;
+          if (modalMediaContainer) {
+            const vid = modalMediaContainer.querySelector('video');
+            if (vid) vid.pause();
+            modalMediaContainer.innerHTML = '';
+          }
+          lightboxModal.classList.remove('open');
+        }
+
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const closeModalBtn2 = document.getElementById('closeModalBtn2');
+        if (closeModalBtn) closeModalBtn.addEventListener('click', closeLightbox);
+        if (closeModalBtn2) closeModalBtn2.addEventListener('click', closeLightbox);
+        if (lightboxModal) {
+          lightboxModal.addEventListener('click', (e) => {
+            if (e.target === lightboxModal) closeLightbox();
+          });
+        }
+
+        // Helper Kompresi Gambar
+        function compressImageToDataURL(file, maxWidth = 960, quality = 0.78) {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+              const img = new Image();
+              img.onload = () => {
+                let width = img.width;
+                let height = img.height;
+                if (width > maxWidth) {
+                  height = Math.round((height * maxWidth) / width);
+                  width = maxWidth;
+                }
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                resolve(canvas.toDataURL('image/jpeg', quality));
+              };
+              img.onerror = reject;
+              img.src = ev.target.result;
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+          });
+        }
+
+        function escapeHtml(str) {
+          return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+        }
+
+        // =========================================================================
+        // 0. MODAL EDIT NAMA & KETERANGAN KARYA (SLOT & KARTU TAMBAHAN)
+        // =========================================================================
+        const editMetaModal = document.getElementById('editMetaModal');
+        const editMetaForm = document.getElementById('editMetaForm');
+        const editWorkNameInput = document.getElementById('editWorkNameInput');
+        const editWorkDescInput = document.getElementById('editWorkDescInput');
+        const closeEditMetaBtn = document.getElementById('closeEditMetaBtn');
+        const cancelEditMetaBtn = document.getElementById('cancelEditMetaBtn');
+        const saveMetaBtn = document.getElementById('saveMetaBtn');
+
+        let activeEditTarget = null;
+
+        function openEditWorkModal(kind, id, currentName, currentDesc) {
+          if (!editMetaModal) return;
+          activeEditTarget = { kind, id };
+          if (editWorkNameInput) editWorkNameInput.value = currentName || '';
+          if (editWorkDescInput) editWorkDescInput.value = currentDesc || '';
+          editMetaModal.classList.add('open');
+          setTimeout(() => {
+            if (editWorkNameInput) editWorkNameInput.focus();
+          }, 60);
+        }
+
+        function closeEditWorkModal() {
+          if (!editMetaModal) return;
+          editMetaModal.classList.remove('open');
+          activeEditTarget = null;
+        }
+
+        if (closeEditMetaBtn) closeEditMetaBtn.addEventListener('click', closeEditWorkModal);
+        if (cancelEditMetaBtn) cancelEditMetaBtn.addEventListener('click', closeEditWorkModal);
+        if (editMetaModal) {
+          editMetaModal.addEventListener('click', (e) => {
+            if (e.target === editMetaModal) closeEditWorkModal();
+          });
+        }
+
+        function handleSaveWorkMeta() {
+          if (!activeEditTarget) return;
+          const newName = editWorkNameInput ? editWorkNameInput.value.trim() : '';
+          const newDesc = editWorkDescInput ? editWorkDescInput.value.trim() : '';
+
+          if (!newName) {
+            showToast('Nama karya wajib diisi.');
+            if (editWorkNameInput) editWorkNameInput.focus();
+            return;
+          }
+
+          if (activeEditTarget.kind === 'slot') {
+            const slotId = activeEditTarget.id;
+            const allSaved = loadSlotData();
+            const existing = allSaved[slotId] || { mediaType: '', mediaUrl: '' };
+
+            allSaved[slotId] = {
+              ...existing,
+              fileName: newName,
+              customTitle: newName,
+              customDesc: newDesc
+            };
+
+            if (saveSlotData(allSaved)) {
+              renderSlotCard(slotId);
+              closeEditWorkModal();
+              showToast('Nama & keterangan karya diperbarui!');
+            }
+          } else if (activeEditTarget.kind === 'custom') {
+            const projId = activeEditTarget.id;
+            const list = loadCustomProjects();
+            const idx = list.findIndex(item => item.id === projId);
+            if (idx !== -1) {
+              list[idx] = {
+                ...list[idx],
+                title: newName,
+                desc: newDesc
+              };
+              if (saveCustomProjects(list)) {
+                renderAllCustomProjects();
+                closeEditWorkModal();
+                showToast('Nama & keterangan karya diperbarui!');
+              }
+            }
+          }
+        }
+
+        if (editMetaForm) {
+          editMetaForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            handleSaveWorkMeta();
+          });
+        }
+        if (saveMetaBtn) {
+          saveMetaBtn.type = 'button';
+          saveMetaBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleSaveWorkMeta();
+          });
+        }
+
+        // =========================================================================
+        // 1. UPLOAD LANGSUNG DI TEMPAT TANDA "+" (SLOT BAWAAN)
+        // =========================================================================
+        const SLOT_STORAGE_KEY = 'yohanes_dkv_direct_slots_v1';
+        const slotDirectFileInput = document.getElementById('slotDirectFileInput');
+        const sessionSlotVideoMap = new Map();
+        let activeTargetSlotId = null;
+
+        const defaultSlotsMeta = {
+          slot_video: {
+            frame: 'YOUR WORK / VIDEO',
+            defaultTitle: 'Tambahkan Video Cinematic',
+            defaultSub: 'Klik tanda ＋ untuk langsung memilih video dari perangkat',
+            defaultHeading: 'Video & Cinematic',
+            defaultDesc: 'Tempat untuk menampilkan video hasil karya sendiri. Klik tanda ＋ untuk memilih video dari laptop atau HP agar langsung tampil di sini.',
+            btnText: '＋ Upload Video di Sini',
+            categoryLabel: 'Video & Cinematic'
+          },
+          slot_poster: {
+            frame: 'FRAME 02 / GRAPHIC DESIGN',
+            defaultTitle: 'Desain Poster & Spanduk',
+            defaultSub: 'Klik tanda ＋ untuk memasang poster di sini',
+            defaultHeading: 'Desain Poster & Media Cetak',
+            defaultDesc: 'Slot untuk poster dan desain spanduk. Klik tanda ＋ untuk langsung memasang file gambar karya di kotak ini.',
+            btnText: '＋ Upload Poster di Sini',
+            categoryLabel: 'Desain Poster'
+          },
+          slot_photo: {
+            frame: 'FRAME 03 / PHOTOGRAPHY',
+            defaultTitle: 'Dokumentasi & Fotografi',
+            defaultSub: 'Klik tanda ＋ untuk memasang foto di sini',
+            defaultHeading: 'Dokumentasi & Fotografi',
+            defaultDesc: 'Slot untuk hasil fotografi. Klik tanda ＋ untuk langsung memasang hasil jepretan di kotak ini.',
+            btnText: '＋ Upload Foto di Sini',
+            categoryLabel: 'Fotografi'
+          }
+        };
+
+        function loadSlotData() {
+          try {
+            const raw = localStorage.getItem(SLOT_STORAGE_KEY);
+            return raw ? JSON.parse(raw) : {};
+          } catch (e) {
+            return {};
+          }
+        }
+
+        function saveSlotData(dataObj) {
+          try {
+            localStorage.setItem(SLOT_STORAGE_KEY, JSON.stringify(dataObj));
+            return true;
+          } catch (e) {
+            showToast('Penyimpanan penuh! Gunakan ukuran gambar lebih kecil.');
+            return false;
+          }
+        }
+
+        function triggerSlotFilePicker(slotId) {
+          activeTargetSlotId = slotId;
+          if (!slotDirectFileInput) return;
+          slotDirectFileInput.value = '';
+          if (slotId === 'slot_video') {
+            slotDirectFileInput.accept = 'video/*,image/*';
+          } else {
+            slotDirectFileInput.accept = 'image/*,video/*';
+          }
+          slotDirectFileInput.click();
+        }
+
+        function renderSlotCard(slotId) {
+          const card = document.querySelector(`[data-slot-id="${slotId}"]`);
+          const meta = defaultSlotsMeta[slotId];
+          if (!card || !meta) return;
+
+          const artEl = card.querySelector('[data-slot-art]');
+          const headingEl = card.querySelector('[data-slot-heading]');
+          const descEl = card.querySelector('[data-slot-desc]');
+          const actionsEl = card.querySelector('[data-slot-actions]');
+          const allSaved = loadSlotData();
+          const savedItem = allSaved[slotId];
+
+          const mediaUrl = savedItem
+            ? (savedItem.mediaType === 'video' ? (sessionSlotVideoMap.get(slotId) || '') : (savedItem.mediaUrl || ''))
+            : '';
+
+          const displayTitle = (savedItem && (savedItem.customTitle || savedItem.fileName))
+            ? (savedItem.customTitle || savedItem.fileName)
+            : meta.defaultHeading;
+
+          const displayDesc = (savedItem && typeof savedItem.customDesc === 'string' && savedItem.customDesc.trim() !== '')
+            ? savedItem.customDesc
+            : meta.defaultDesc;
+
+          if (headingEl) headingEl.textContent = displayTitle;
+          if (descEl) descEl.textContent = displayDesc;
+
+          if (mediaUrl && savedItem) {
+            artEl.classList.add('has-media');
+            artEl.innerHTML = '';
+
+            if (savedItem.mediaType === 'image') {
+              const img = document.createElement('img');
+              img.src = mediaUrl;
+              img.alt = displayTitle;
+              img.className = 'project-media-cover';
+              artEl.appendChild(img);
+            } else if (savedItem.mediaType === 'video') {
+              const vid = document.createElement('video');
+              vid.src = mediaUrl;
+              vid.muted = true;
+              vid.loop = true;
+              vid.autoplay = true;
+              vid.playsInline = true;
+              vid.className = 'project-media-cover';
+              artEl.appendChild(vid);
+            }
+
+            const frameTag = document.createElement('span');
+            frameTag.className = 'frame-tag';
+            frameTag.textContent = meta.frame;
+            artEl.appendChild(frameTag);
+
+            const overlayInfo = document.createElement('div');
+            overlayInfo.innerHTML = `
+              <div class="play" aria-hidden="true">${savedItem.mediaType === 'video' ? '▶' : '🔍'}</div>
+              <strong style="font-size:1.2rem; color:#fff; text-shadow:0 2px 10px rgba(0,0,0,.85);">${escapeHtml(displayTitle)}</strong>
+              <p style="color:#bfdbfe; margin-top:4px; text-shadow:0 2px 8px rgba(0,0,0,.85);">Klik untuk memperbesar pratinjau</p>
+            `;
+            artEl.appendChild(overlayInfo);
+
+            const openPreview = () => {
+              window.openLightbox(
+                displayTitle,
+                meta.categoryLabel,
+                displayDesc,
+                savedItem.mediaType === 'video' ? '▶' : '◎',
+                '',
+                mediaUrl,
+                savedItem.mediaType
+              );
+            };
+
+            artEl.onclick = openPreview;
+
+            actionsEl.innerHTML = '';
+            const viewBtn = document.createElement('button');
+            viewBtn.type = 'button';
+            viewBtn.className = 'btn primary';
+            viewBtn.textContent = 'Lihat Pratinjau';
+            viewBtn.addEventListener('click', openPreview);
+
+            const editBtn = document.createElement('button');
+            editBtn.type = 'button';
+            editBtn.className = 'btn';
+            editBtn.textContent = '✎ Edit Nama & Keterangan';
+            editBtn.addEventListener('click', () => {
+              openEditWorkModal(
+                'slot',
+                slotId,
+                displayTitle,
+                savedItem.customDesc || ''
+              );
+            });
+
+            const changeBtn = document.createElement('button');
+            changeBtn.type = 'button';
+            changeBtn.className = 'btn';
+            changeBtn.textContent = 'Ganti File';
+            changeBtn.addEventListener('click', () => triggerSlotFilePicker(slotId));
+
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.className = 'btn-danger-sm';
+            removeBtn.textContent = 'Hapus File';
+            removeBtn.addEventListener('click', () => {
+              const current = loadSlotData();
+              delete current[slotId];
+              saveSlotData(current);
+              sessionSlotVideoMap.delete(slotId);
+              renderSlotCard(slotId);
+              showToast('File dikembalikan ke slot kosong.');
+            });
+
+            actionsEl.appendChild(viewBtn);
+            actionsEl.appendChild(editBtn);
+            actionsEl.appendChild(changeBtn);
+            actionsEl.appendChild(removeBtn);
+          } else {
+            artEl.classList.remove('has-media');
+            artEl.innerHTML = `
+              <span class="frame-tag">${meta.frame}</span>
+              <div>
+                <div class="play" aria-hidden="true">＋</div>
+                <strong style="font-size:${slotId === 'slot_video' ? '1.35rem' : '1.2rem'}; color:#fff">${escapeHtml((savedItem && savedItem.customTitle) ? savedItem.customTitle : meta.defaultTitle)}</strong>
+                <p style="color:#bfdbfe; margin-top:4px">${meta.defaultSub}</p>
+              </div>
+            `;
+            artEl.onclick = () => triggerSlotFilePicker(slotId);
+
+            actionsEl.innerHTML = '';
+            const uploadBtn = document.createElement('button');
+            uploadBtn.type = 'button';
+            uploadBtn.className = 'btn primary';
+            uploadBtn.textContent = meta.btnText;
+            uploadBtn.addEventListener('click', () => triggerSlotFilePicker(slotId));
+
+            const editBtn = document.createElement('button');
+            editBtn.type = 'button';
+            editBtn.className = 'btn';
+            editBtn.textContent = '✎ Edit Nama & Keterangan';
+            editBtn.addEventListener('click', () => {
+              openEditWorkModal(
+                'slot',
+                slotId,
+                displayTitle,
+                savedItem && savedItem.customDesc ? savedItem.customDesc : ''
+              );
+            });
+
+            actionsEl.appendChild(uploadBtn);
+            actionsEl.appendChild(editBtn);
+          }
+        }
+
+        if (slotDirectFileInput) {
+          slotDirectFileInput.addEventListener('change', async (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file || !activeTargetSlotId) return;
+
+            const targetId = activeTargetSlotId;
+            const cleanName = file.name.replace(/\.[^/.]+$/, '');
+            const allSaved = loadSlotData();
+            const prevSlot = allSaved[targetId] || {};
+            const keepTitle = prevSlot.customTitle ? prevSlot.customTitle : cleanName;
+            const keepDesc = typeof prevSlot.customDesc === 'string' ? prevSlot.customDesc : '';
+
+            if (file.type.startsWith('image/')) {
+              try {
+                const compressedUrl = await compressImageToDataURL(file);
+                allSaved[targetId] = {
+                  fileName: cleanName,
+                  customTitle: keepTitle,
+                  customDesc: keepDesc,
+                  mediaType: 'image',
+                  mediaUrl: compressedUrl
+                };
+                if (saveSlotData(allSaved)) {
+                  renderSlotCard(targetId);
+                  showToast('Gambar langsung ditampilkan di slot ini!');
+                }
+              } catch (err) {
+                showToast('Gagal memproses gambar.');
+              }
+            } else if (file.type.startsWith('video/')) {
+              const videoObjUrl = URL.createObjectURL(file);
+              sessionSlotVideoMap.set(targetId, videoObjUrl);
+              allSaved[targetId] = {
+                fileName: cleanName,
+                customTitle: keepTitle,
+                customDesc: keepDesc,
+                mediaType: 'video',
+                mediaUrl: ''
+              };
+              saveSlotData(allSaved);
+              renderSlotCard(targetId);
+              showToast('Video langsung ditampilkan di slot ini!');
+            } else {
+              showToast('Pilih file berformat gambar atau video.');
+            }
+          });
+        }
+
+        Object.keys(defaultSlotsMeta).forEach(renderSlotCard);
+
+        // =========================================================================
+        // 2. FITUR TAMBAH KARTU BARU (TOMBOL "+ UPLOAD KARYA" DI ATAS)
+        // =========================================================================
+        const STORAGE_KEY = 'yohanes_dkv_uploaded_projects_v1';
+        const uploadModal = document.getElementById('uploadModal');
+        const openUploadModalBtn = document.getElementById('openUploadModalBtn');
+        const closeUploadModalBtn = document.getElementById('closeUploadModalBtn');
+        const cancelUploadBtn = document.getElementById('cancelUploadBtn');
+        const uploadProjectForm = document.getElementById('uploadProjectForm');
+        const saveProjectBtn = document.getElementById('saveProjectBtn');
+        const uploadDropzone = document.getElementById('uploadDropzone');
+        const projectFileInput = document.getElementById('projectFileInput');
+        const dropzonePreview = document.getElementById('dropzonePreview');
+
+        let currentUploadedMedia = { url: '', type: '', persistable: false };
+        const sessionVideoMap = new Map();
+
+        const categoryConfig = {
+          poster: { label: 'Desain Poster', icon: '▧', theme: 'poster-theme', frame: 'CUSTOM / POSTER' },
+          video: { label: 'Video / Cinematic', icon: '▶', theme: '', frame: 'CUSTOM / VIDEO' },
+          photo: { label: 'Fotografi', icon: '◎', theme: 'photo-theme', frame: 'CUSTOM / PHOTO' },
+          animation: { label: 'Animasi', icon: '◇', theme: 'poster-theme', frame: 'CUSTOM / ANIMATION' }
+        };
+
+        function loadCustomProjects() {
+          try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            return raw ? JSON.parse(raw) : [];
+          } catch (e) {
+            return [];
+          }
+        }
+
+        function saveCustomProjects(list) {
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+            return true;
+          } catch (e) {
+            showToast('Penyimpanan penuh! Hapus beberapa karya lama atau gunakan gambar lebih kecil.');
+            return false;
+          }
+        }
+
+        async function handleSelectedFile(file) {
+          if (!file || !dropzonePreview) return;
+          dropzonePreview.innerHTML = '';
+
+          if (file.type.startsWith('image/')) {
+            try {
+              const compressedDataUrl = await compressImageToDataURL(file);
+              currentUploadedMedia = { url: compressedDataUrl, type: 'image', persistable: true };
+              const img = document.createElement('img');
+              img.src = compressedDataUrl;
+              img.alt = 'Pratinjau gambar';
+              dropzonePreview.appendChild(img);
+              dropzonePreview.style.display = 'block';
+            } catch (err) {
+              showToast('Gagal memproses file gambar.');
+            }
+          } else if (file.type.startsWith('video/')) {
+            const objectUrl = URL.createObjectURL(file);
+            currentUploadedMedia = { url: objectUrl, type: 'video', persistable: false, file };
+            const vid = document.createElement('video');
+            vid.src = objectUrl;
+            vid.controls = true;
+            vid.muted = true;
+            dropzonePreview.appendChild(vid);
+            dropzonePreview.style.display = 'block';
+          } else {
+            showToast('Format file harus berupa gambar atau video.');
+          }
+        }
+
+        function resetUploadForm() {
+          if (uploadProjectForm) uploadProjectForm.reset();
+          currentUploadedMedia = { url: '', type: '', persistable: false };
+          if (dropzonePreview) {
+            dropzonePreview.innerHTML = '';
+            dropzonePreview.style.display = 'none';
+          }
+        }
+
+        function openUploadModal() {
+          if (!uploadModal) return;
+          resetUploadForm();
+          uploadModal.classList.add('open');
+        }
+
+        function closeUploadModal() {
+          if (!uploadModal) return;
+          uploadModal.classList.remove('open');
+        }
+
+        function createProjectCardElement(item) {
+          const cfg = categoryConfig[item.category] || categoryConfig.poster;
+          const activeMediaUrl = item.mediaType === 'video'
+            ? (sessionVideoMap.get(item.id) || '')
+            : (item.mediaUrl || '');
+
+          const article = document.createElement('article');
+          article.className = 'card project custom-project-card';
+          article.dataset.category = item.category;
+          article.dataset.id = item.id;
+
+          const artDiv = document.createElement('div');
+          artDiv.className = `project-art ${cfg.theme} ${activeMediaUrl ? 'has-media' : ''}`;
+
+          if (activeMediaUrl && item.mediaType === 'image') {
+            const coverImg = document.createElement('img');
+            coverImg.src = activeMediaUrl;
+            coverImg.alt = item.title;
+            coverImg.className = 'project-media-cover';
+            artDiv.appendChild(coverImg);
+          } else if (activeMediaUrl && item.mediaType === 'video') {
+            const coverVid = document.createElement('video');
+            coverVid.src = activeMediaUrl;
+            coverVid.muted = true;
+            coverVid.loop = true;
+            coverVid.playsInline = true;
+            coverVid.className = 'project-media-cover';
+            artDiv.appendChild(coverVid);
+          }
+
+          const frameSpan = document.createElement('span');
+          frameSpan.className = 'frame-tag';
+          frameSpan.textContent = cfg.frame;
+          artDiv.appendChild(frameSpan);
+
+          const centerBox = document.createElement('div');
+          centerBox.innerHTML = `
+            <div class="play" aria-hidden="true">${cfg.icon}</div>
+            <strong style="font-size:1.2rem; color:#fff; text-shadow:0 2px 10px rgba(0,0,0,.75);">${escapeHtml(item.title)}</strong>
+            <p style="color:#bfdbfe; margin-top:4px; text-shadow:0 2px 8px rgba(0,0,0,.75);">${cfg.label}</p>
+          `;
+          artDiv.appendChild(centerBox);
+
+          const finalDesc = item.desc || 'Karya portofolio yang ditambahkan oleh Yohanes Saragih.';
+
+          const openPreviewHandler = () => {
+            window.openLightbox(
+              item.title,
+              `${cfg.label} · Karya Upload`,
+              finalDesc,
+              cfg.icon,
+              item.link || '',
+              activeMediaUrl,
+              activeMediaUrl ? item.mediaType : ''
+            );
+          };
+
+          artDiv.addEventListener('click', openPreviewHandler);
+
+          const contentDiv = document.createElement('div');
+          contentDiv.className = 'project-content';
+
+          const infoDiv = document.createElement('div');
+          infoDiv.innerHTML = `
+            <h3>${escapeHtml(item.title)}</h3>
+            <p class="project-desc-text">${escapeHtml(item.desc || 'Karya kreatif yang diunggah ke portofolio.')}</p>
+            <div class="project-meta">
+              <span>${cfg.label}</span>
+              <span>Karya Upload</span>
+            </div>
+          `;
+
+          const actionsDiv = document.createElement('div');
+          actionsDiv.className = 'project-actions';
+
+          const previewBtn = document.createElement('button');
+          previewBtn.type = 'button';
+          previewBtn.className = 'btn primary';
+          previewBtn.textContent = 'Lihat Pratinjau';
+          previewBtn.addEventListener('click', openPreviewHandler);
+          actionsDiv.appendChild(previewBtn);
+
+          const editBtn = document.createElement('button');
+          editBtn.type = 'button';
+          editBtn.className = 'btn';
+          editBtn.textContent = '✎ Edit Nama & Keterangan';
+          editBtn.addEventListener('click', () => {
+            openEditWorkModal('custom', item.id, item.title, item.desc || '');
+          });
+          actionsDiv.appendChild(editBtn);
+
+          const deleteBtn = document.createElement('button');
+          deleteBtn.type = 'button';
+          deleteBtn.className = 'btn-danger-sm';
+          deleteBtn.textContent = 'Hapus';
+          deleteBtn.addEventListener('click', () => {
+            const updated = loadCustomProjects().filter(p => p.id !== item.id);
+            saveCustomProjects(updated);
+            sessionVideoMap.delete(item.id);
+            article.remove();
+            showToast('Karya berhasil dihapus.');
+          });
+          actionsDiv.appendChild(deleteBtn);
+
+          contentDiv.appendChild(infoDiv);
+          contentDiv.appendChild(actionsDiv);
+          article.appendChild(artDiv);
+          article.appendChild(contentDiv);
+
+          return article;
+        }
+
+        function renderAllCustomProjects() {
+          if (!projectsGrid) return;
+          document.querySelectorAll('.custom-project-card').forEach(el => el.remove());
+          const items = loadCustomProjects();
+          items.forEach(item => {
+            const cardEl = createProjectCardElement(item);
+            projectsGrid.appendChild(cardEl);
+          });
+          applyProjectFilter();
+          const projectsPage = document.getElementById('projects');
+          if (projectsPage && projectsPage.classList.contains('active')) {
+            setupScrollRevealForPage(projectsPage, false);
+          }
+        }
+
+        if (openUploadModalBtn) openUploadModalBtn.addEventListener('click', openUploadModal);
+        if (closeUploadModalBtn) closeUploadModalBtn.addEventListener('click', closeUploadModal);
+        if (cancelUploadBtn) cancelUploadBtn.addEventListener('click', closeUploadModal);
+        if (uploadModal) {
+          uploadModal.addEventListener('click', (e) => {
+            if (e.target === uploadModal) closeUploadModal();
+          });
+        }
+
+        if (uploadDropzone && projectFileInput) {
+          uploadDropzone.addEventListener('click', () => projectFileInput.click());
+          projectFileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+              handleSelectedFile(e.target.files[0]);
+            }
+          });
+
+          uploadDropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadDropzone.classList.add('dragover');
+          });
+          uploadDropzone.addEventListener('dragleave', () => {
+            uploadDropzone.classList.remove('dragover');
+          });
+          uploadDropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadDropzone.classList.remove('dragover');
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+              handleSelectedFile(e.dataTransfer.files[0]);
+            }
+          });
+        }
+
+        function saveUploadedProject() {
+          const titleEl = document.getElementById('projectTitleInput');
+          const titleVal = titleEl ? titleEl.value.trim() : '';
+          if (!titleVal) {
+            showToast('Nama / judul karya wajib diisi.');
+            if (titleEl) titleEl.focus();
+            return;
+          }
+
+          const categoryVal = document.getElementById('projectCategoryInput').value;
+          const descVal = document.getElementById('projectDescInput').value.trim();
+          const linkVal = document.getElementById('projectLinkInput').value.trim();
+          const newId = 'proj_' + Date.now();
+          if (currentUploadedMedia.type === 'video' && currentUploadedMedia.url) {
+            sessionVideoMap.set(newId, currentUploadedMedia.url);
+          }
+          const newProject = {
+            id: newId,
+            title: titleVal,
+            category: categoryVal,
+            desc: descVal,
+            link: linkVal,
+            mediaType: currentUploadedMedia.type || '',
+            mediaUrl: currentUploadedMedia.persistable ? currentUploadedMedia.url : ''
+          };
+          const existing = loadCustomProjects();
+          existing.unshift(newProject);
+          if (saveCustomProjects(existing)) {
+            renderAllCustomProjects();
+            closeUploadModal();
+            showToast('Karya baru berhasil ditambahkan!');
+          }
+        }
+
+        if (uploadProjectForm) {
+          uploadProjectForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            saveUploadedProject();
+          });
+        }
+        if (saveProjectBtn) {
+          saveProjectBtn.type = 'button';
+          saveProjectBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            saveUploadedProject();
+          });
+        }
+
+        renderAllCustomProjects();
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            if (lightboxModal && lightboxModal.classList.contains('open')) closeLightbox();
+            if (toolModal && toolModal.classList.contains('open')) closeToolModal();
+            if (uploadModal && uploadModal.classList.contains('open')) closeUploadModal();
+            if (editMetaModal && editMetaModal.classList.contains('open')) closeEditWorkModal();
+          }
+        });
+
+        const yearEl = document.getElementById('year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+        const initial = location.hash.slice(1);
+        showPage(document.getElementById(initial) ? initial : 'home', false);
+      } catch (err) {
+        console.error('Terjadi kesalahan pada inisialisasi skrip:', err);
+      }
+    });
+  </script>
+</body>
+</html>
