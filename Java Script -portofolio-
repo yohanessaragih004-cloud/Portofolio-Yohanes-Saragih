@@ -1,0 +1,1108 @@
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    // Navigasi Halaman SPA
+    const pages = [...document.querySelectorAll('.page')];
+    const navButtons = [...document.querySelectorAll('[data-go]')];
+    const navLinks = document.getElementById('navLinks');
+    const menuBtn = document.getElementById('menuBtn');
+
+    // Sistem Scroll-Reveal
+    const REVEAL_SELECTOR = [
+      '.hero-copy',
+      '.hero-visual',
+      '.stat',
+      '.section-head',
+      '.section-head-row',
+      '.visual-heading',
+      '.card',
+      '.skill-tile',
+      '.app-chip',
+      '.experience-banner',
+      '.timeline-item',
+      '.filter-bar',
+      '.project'
+    ].join(', ');
+
+    let revealObserver = null;
+    const supportsIntersectionObserver = 'IntersectionObserver' in window;
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (supportsIntersectionObserver && !prefersReducedMotion) {
+      revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        root: null,
+        threshold: 0.12,
+        rootMargin: '0px 0px -36px 0px'
+      });
+    }
+
+    function setupScrollRevealForPage(pageEl, resetAnimation = true) {
+      if (!pageEl) return;
+      const targets = [...pageEl.querySelectorAll(REVEAL_SELECTOR)];
+
+      targets.forEach((el, index) => {
+        if (!revealObserver) {
+          el.classList.remove('reveal-item');
+          el.classList.add('is-visible');
+          return;
+        }
+
+        if (resetAnimation) {
+          revealObserver.unobserve(el);
+          el.classList.remove('is-visible');
+          el.classList.add('reveal-item');
+          const staggerDelay = (index % 6) * 65;
+          el.style.setProperty('--reveal-delay', `${staggerDelay}ms`);
+        } else if (!el.classList.contains('is-visible')) {
+          el.classList.add('reveal-item');
+        }
+      });
+
+      if (revealObserver) {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            targets.forEach(el => {
+              if (!el.classList.contains('is-visible')) {
+                revealObserver.observe(el);
+              }
+            });
+          });
+        });
+      }
+    }
+
+    function showPage(name, updateHistory = true) {
+      const target = document.getElementById(name);
+      if (!target) return;
+
+      pages.forEach(page => page.classList.toggle('active', page.id === name));
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.go === name);
+      });
+
+      if (navLinks) navLinks.classList.remove('open');
+      if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      setupScrollRevealForPage(target, true);
+
+      if (updateHistory && location.hash !== '#' + name) {
+        history.pushState({ page: name }, '', '#' + name);
+      }
+    }
+
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const dest = btn.dataset.go;
+        if (dest) showPage(dest);
+      });
+    });
+
+    if (menuBtn && navLinks) {
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = navLinks.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', String(isOpen));
+      });
+    }
+
+    window.addEventListener('popstate', () => {
+      const name = location.hash.slice(1) || 'home';
+      showPage(name, false);
+    });
+
+    // Toast Helper
+    const toastEl = document.getElementById('toast');
+    let toastTimer;
+    function showToast(message) {
+      if (!toastEl) return;
+      toastEl.textContent = message;
+      toastEl.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+    }
+
+    // Data & Pop-up Modal Keterangan Aplikasi Kreatif (Tools)
+    const toolsData = {
+      canva: {
+        code: 'Ca',
+        name: 'Canva',
+        category: 'Desain Grafis & Tata Letak Cepat',
+        desc: 'Platform desain grafis berbasis visual untuk menyusun tata letak poster, infografis, dan materi publikasi dengan tipografi serta elemen visual yang rapi.',
+        usage: 'Penggunaan DKV: Digunakan untuk merancang konsep poster kegiatan sekolah, layout cepat, dan variasi desain grafis.'
+      },
+      capcut: {
+        code: 'CC',
+        name: 'CapCut',
+        category: 'Mobile & Short Video Editing',
+        desc: 'Aplikasi penyuntingan video yang praktis dan responsif untuk memotong klip, menyusun transisi dinamis, efek visual, serta sinkronisasi audio.',
+        usage: 'Penggunaan DKV: Digunakan untuk mengedit video pendek, konten dokumentasi, serta penyuntingan cepat tugas video.'
+      },
+      photoshop: {
+        code: 'Ps',
+        name: 'Adobe Photoshop',
+        category: 'Photo Retouching & Manipulasi Poster',
+        desc: 'Perangkat lunak standar industri untuk pengolahan foto digital, seleksi objek presisi, koreksi warna, dan manipulasi grafis berlapis.',
+        usage: 'Penggunaan DKV: Digunakan untuk retouching hasil fotografi, pembuatan poster visual, serta persiapan desain cetak dan spanduk.'
+      },
+      premiere: {
+        code: 'Pr',
+        name: 'Adobe Premiere Pro',
+        category: 'Professional Multi-Track Video Editing',
+        desc: 'Aplikasi penyuntingan video profesional berbasis timeline multi-track dengan kontrol penuh pada transisi, audio mixing, dan color grading.',
+        usage: 'Penggunaan DKV: Digunakan untuk merangkai proyek video sinematik seperti Cinematic Model dan tugas produksi video sekolah.'
+      },
+      flipaclip: {
+        code: 'Fl',
+        name: 'FlipaClip',
+        category: 'Frame-by-Frame 2D Animation',
+        desc: 'Aplikasi pembuatan animasi 2D tradisional berbasis frame-by-frame dengan fitur onion skin dan layer untuk menggambar pergerakan karakter secara bertahap.',
+        usage: 'Penggunaan DKV: Digunakan untuk melatih prinsip dasar gerak (motion) dan membuat sketsa animasi 2D.'
+      },
+      blender: {
+        code: 'Bl',
+        name: 'Blender',
+        category: '3D Modeling & Basic 3D Animation',
+        desc: 'Perangkat lunak open-source untuk pembuatan objek 3D (modeling), pemberian material, pencahayaan, rendering, serta animasi tiga dimensi.',
+        usage: 'Penggunaan DKV: Digunakan untuk mempelajari dasar pemodelan bentuk 3D dan eksplorasi animasi tiga dimensi.'
+      }
+    };
+
+    const appChips = [...document.querySelectorAll('.app-chip[data-tool]')];
+    const toolModal = document.getElementById('toolModal');
+    const toolModalCode = document.getElementById('toolModalCode');
+    const toolModalCategory = document.getElementById('toolModalCategory');
+    const toolModalTitle = document.getElementById('toolModalTitle');
+    const toolModalDesc = document.getElementById('toolModalDesc');
+    const toolModalUsage = document.getElementById('toolModalUsage');
+
+    function openToolModal(key) {
+      const info = toolsData[key];
+      if (!info || !toolModal) return;
+
+      appChips.forEach(c => c.classList.toggle('active', c.dataset.tool === key));
+
+      if (toolModalCode) toolModalCode.textContent = info.code;
+      if (toolModalCategory) toolModalCategory.textContent = info.category;
+      if (toolModalTitle) toolModalTitle.textContent = info.name;
+      if (toolModalDesc) toolModalDesc.textContent = info.desc;
+      if (toolModalUsage) toolModalUsage.textContent = info.usage;
+
+      toolModal.classList.add('open');
+    }
+
+    function closeToolModal() {
+      if (!toolModal) return;
+      toolModal.classList.remove('open');
+      appChips.forEach(c => c.classList.remove('active'));
+    }
+
+    appChips.forEach(chip => {
+      chip.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        openToolModal(chip.dataset.tool);
+      });
+    });
+
+    const closeToolModalBtn = document.getElementById('closeToolModalBtn');
+    const closeToolModalBtn2 = document.getElementById('closeToolModalBtn2');
+    if (closeToolModalBtn) closeToolModalBtn.addEventListener('click', closeToolModal);
+    if (closeToolModalBtn2) closeToolModalBtn2.addEventListener('click', closeToolModal);
+    if (toolModal) {
+      toolModal.addEventListener('click', (e) => {
+        if (e.target === toolModal) closeToolModal();
+      });
+    }
+
+    // Helper Salin Teks ke Clipboard
+    function copyTextToClipboard(text, successMsg, fallbackMsg) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(successMsg);
+        }).catch(() => {
+          fallbackCopy(text, successMsg, fallbackMsg);
+        });
+      } else {
+        fallbackCopy(text, successMsg, fallbackMsg);
+      }
+    }
+
+    function fallbackCopy(text, successMsg, fallbackMsg) {
+      const tempInput = document.createElement('input');
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMsg);
+      } catch (err) {
+        showToast(fallbackMsg);
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    const copyWaBtn = document.getElementById('copyWaBtn');
+    if (copyWaBtn) {
+      copyWaBtn.addEventListener('click', () => {
+        const waNumber = '082352119651';
+        copyTextToClipboard(waNumber, 'Nomor WhatsApp berhasil disalin!', 'WhatsApp: ' + waNumber);
+      });
+    }
+
+    const copyEmailBtn = document.getElementById('copyEmailBtn');
+    if (copyEmailBtn) {
+      copyEmailBtn.addEventListener('click', () => {
+        const email = 'yohanessaragih004@gmail.com';
+        copyTextToClipboard(email, 'Alamat email berhasil disalin!', 'Email: ' + email);
+      });
+    }
+
+    // Pratinjau Ganti Foto Profil Lokal
+    const avatarInput = document.getElementById('avatarInput');
+    const avatarBox = document.getElementById('avatar');
+    if (avatarInput && avatarBox) {
+      avatarInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          avatarBox.innerHTML = `<img src="${ev.target.result}" alt="Yohanes Saragih">`;
+          showToast('Pratinjau foto profil diperbarui');
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Filter Kategori Karya
+    const filterBtns = [...document.querySelectorAll('.filter-btn')];
+    const projectsGrid = document.getElementById('projectsGrid');
+    let activeFilter = 'all';
+
+    function applyProjectFilter() {
+      const allCards = [...document.querySelectorAll('.project')];
+      allCards.forEach(card => {
+        const match = activeFilter === 'all' || card.dataset.category === activeFilter;
+        card.classList.toggle('hidden', !match);
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter || 'all';
+        applyProjectFilter();
+      });
+    });
+
+    // Lightbox Modal Karya
+    const lightboxModal = document.getElementById('lightboxModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMeta = document.getElementById('modalMeta');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalIcon = document.getElementById('modalIcon');
+    const modalMediaContainer = document.getElementById('modalMediaContainer');
+    const modalDriveLink = document.getElementById('modalDriveLink');
+
+    window.openLightbox = function(title, meta, desc, icon, driveUrl, mediaUrl = '', mediaType = '') {
+      if (!lightboxModal) return;
+      if (modalTitle) modalTitle.textContent = title;
+      if (modalMeta) modalMeta.textContent = meta;
+      if (modalDesc) modalDesc.textContent = desc;
+
+      if (modalMediaContainer && modalIcon) {
+        modalMediaContainer.innerHTML = '';
+        if (mediaUrl && mediaType === 'image') {
+          const img = document.createElement('img');
+          img.src = mediaUrl;
+          img.alt = title;
+          modalMediaContainer.appendChild(img);
+          modalMediaContainer.style.display = 'block';
+          modalIcon.style.display = 'none';
+        } else if (mediaUrl && mediaType === 'video') {
+          const vid = document.createElement('video');
+          vid.src = mediaUrl;
+          vid.controls = true;
+          vid.playsInline = true;
+          modalMediaContainer.appendChild(vid);
+          modalMediaContainer.style.display = 'block';
+          modalIcon.style.display = 'none';
+        } else {
+          modalMediaContainer.style.display = 'none';
+          modalIcon.style.display = 'grid';
+          modalIcon.textContent = icon;
+        }
+      }
+
+      if (modalDriveLink) {
+        if (driveUrl) {
+          modalDriveLink.href = driveUrl;
+          modalDriveLink.textContent = 'Buka Tautan Karya ↗';
+          modalDriveLink.style.display = 'inline-flex';
+        } else {
+          modalDriveLink.style.display = 'none';
+        }
+      }
+
+      lightboxModal.classList.add('open');
+    };
+
+    function closeLightbox() {
+      if (!lightboxModal) return;
+      if (modalMediaContainer) {
+        const vid = modalMediaContainer.querySelector('video');
+        if (vid) vid.pause();
+        modalMediaContainer.innerHTML = '';
+      }
+      lightboxModal.classList.remove('open');
+    }
+
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const closeModalBtn2 = document.getElementById('closeModalBtn2');
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeLightbox);
+    if (closeModalBtn2) closeModalBtn2.addEventListener('click', closeLightbox);
+    if (lightboxModal) {
+      lightboxModal.addEventListener('click', (e) => {
+        if (e.target === lightboxModal) closeLightbox();
+      });
+    }
+
+    // Helper Kompresi Gambar
+    function compressImageToDataURL(file, maxWidth = 960, quality = 0.78) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const img = new Image();
+          img.onload = () => {
+            let width = img.width;
+            let height = img.height;
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.onerror = reject;
+          img.src = ev.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // =========================================================================
+    // 0. MODAL EDIT NAMA & KETERANGAN KARYA (SLOT & KARTU TAMBAHAN)
+    // =========================================================================
+    const editMetaModal = document.getElementById('editMetaModal');
+    const editMetaForm = document.getElementById('editMetaForm');
+    const editWorkNameInput = document.getElementById('editWorkNameInput');
+    const editWorkDescInput = document.getElementById('editWorkDescInput');
+    const closeEditMetaBtn = document.getElementById('closeEditMetaBtn');
+    const cancelEditMetaBtn = document.getElementById('cancelEditMetaBtn');
+    const saveMetaBtn = document.getElementById('saveMetaBtn');
+
+    let activeEditTarget = null;
+
+    function openEditWorkModal(kind, id, currentName, currentDesc) {
+      if (!editMetaModal) return;
+      activeEditTarget = { kind, id };
+      if (editWorkNameInput) editWorkNameInput.value = currentName || '';
+      if (editWorkDescInput) editWorkDescInput.value = currentDesc || '';
+      editMetaModal.classList.add('open');
+      setTimeout(() => {
+        if (editWorkNameInput) editWorkNameInput.focus();
+      }, 60);
+    }
+
+    function closeEditWorkModal() {
+      if (!editMetaModal) return;
+      editMetaModal.classList.remove('open');
+      activeEditTarget = null;
+    }
+
+    if (closeEditMetaBtn) closeEditMetaBtn.addEventListener('click', closeEditWorkModal);
+    if (cancelEditMetaBtn) cancelEditMetaBtn.addEventListener('click', closeEditWorkModal);
+    if (editMetaModal) {
+      editMetaModal.addEventListener('click', (e) => {
+        if (e.target === editMetaModal) closeEditWorkModal();
+      });
+    }
+
+    function handleSaveWorkMeta() {
+      if (!activeEditTarget) return;
+      const newName = editWorkNameInput ? editWorkNameInput.value.trim() : '';
+      const newDesc = editWorkDescInput ? editWorkDescInput.value.trim() : '';
+
+      if (!newName) {
+        showToast('Nama karya wajib diisi.');
+        if (editWorkNameInput) editWorkNameInput.focus();
+        return;
+      }
+
+      if (activeEditTarget.kind === 'slot') {
+        const slotId = activeEditTarget.id;
+        const allSaved = loadSlotData();
+        const existing = allSaved[slotId] || { mediaType: '', mediaUrl: '' };
+
+        allSaved[slotId] = {
+          ...existing,
+          fileName: newName,
+          customTitle: newName,
+          customDesc: newDesc
+        };
+
+        if (saveSlotData(allSaved)) {
+          renderSlotCard(slotId);
+          closeEditWorkModal();
+          showToast('Nama & keterangan karya diperbarui!');
+        }
+      } else if (activeEditTarget.kind === 'custom') {
+        const projId = activeEditTarget.id;
+        const list = loadCustomProjects();
+        const idx = list.findIndex(item => item.id === projId);
+        if (idx !== -1) {
+          list[idx] = {
+            ...list[idx],
+            title: newName,
+            desc: newDesc
+          };
+          if (saveCustomProjects(list)) {
+            renderAllCustomProjects();
+            closeEditWorkModal();
+            showToast('Nama & keterangan karya diperbarui!');
+          }
+        }
+      }
+    }
+
+    if (editMetaForm) {
+      editMetaForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleSaveWorkMeta();
+      });
+    }
+    if (saveMetaBtn) {
+      saveMetaBtn.type = 'button';
+      saveMetaBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleSaveWorkMeta();
+      });
+    }
+
+    // =========================================================================
+    // 1. UPLOAD LANGSUNG DI TEMPAT TANDA "+" (SLOT BAWAAN)
+    // =========================================================================
+    const SLOT_STORAGE_KEY = 'yohanes_dkv_direct_slots_v1';
+    const slotDirectFileInput = document.getElementById('slotDirectFileInput');
+    const sessionSlotVideoMap = new Map();
+    let activeTargetSlotId = null;
+
+    const defaultSlotsMeta = {
+      slot_video: {
+        frame: 'YOUR WORK / VIDEO',
+        defaultTitle: 'Tambahkan Video Cinematic',
+        defaultSub: 'Klik tanda ＋ untuk langsung memilih video dari perangkat',
+        defaultHeading: 'Video & Cinematic',
+        defaultDesc: 'Tempat untuk menampilkan video hasil karya sendiri. Klik tanda ＋ untuk memilih video dari laptop atau HP agar langsung tampil di sini.',
+        btnText: '＋ Upload Video di Sini',
+        categoryLabel: 'Video & Cinematic'
+      },
+      slot_poster: {
+        frame: 'FRAME 02 / GRAPHIC DESIGN',
+        defaultTitle: 'Desain Poster & Spanduk',
+        defaultSub: 'Klik tanda ＋ untuk memasang poster di sini',
+        defaultHeading: 'Desain Poster & Media Cetak',
+        defaultDesc: 'Slot untuk poster dan desain spanduk. Klik tanda ＋ untuk langsung memasang file gambar karya di kotak ini.',
+        btnText: '＋ Upload Poster di Sini',
+        categoryLabel: 'Desain Poster'
+      },
+      slot_photo: {
+        frame: 'FRAME 03 / PHOTOGRAPHY',
+        defaultTitle: 'Dokumentasi & Fotografi',
+        defaultSub: 'Klik tanda ＋ untuk memasang foto di sini',
+        defaultHeading: 'Dokumentasi & Fotografi',
+        defaultDesc: 'Slot untuk hasil fotografi. Klik tanda ＋ untuk langsung memasang hasil jepretan di kotak ini.',
+        btnText: '＋ Upload Foto di Sini',
+        categoryLabel: 'Fotografi'
+      }
+    };
+
+    function loadSlotData() {
+      try {
+        const raw = localStorage.getItem(SLOT_STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveSlotData(dataObj) {
+      try {
+        localStorage.setItem(SLOT_STORAGE_KEY, JSON.stringify(dataObj));
+        return true;
+      } catch (e) {
+        showToast('Penyimpanan penuh! Gunakan ukuran gambar lebih kecil.');
+        return false;
+      }
+    }
+
+    function triggerSlotFilePicker(slotId) {
+      activeTargetSlotId = slotId;
+      if (!slotDirectFileInput) return;
+      slotDirectFileInput.value = '';
+      if (slotId === 'slot_video') {
+        slotDirectFileInput.accept = 'video/*,image/*';
+      } else {
+        slotDirectFileInput.accept = 'image/*,video/*';
+      }
+      slotDirectFileInput.click();
+    }
+
+    function renderSlotCard(slotId) {
+      const card = document.querySelector(`[data-slot-id="${slotId}"]`);
+      const meta = defaultSlotsMeta[slotId];
+      if (!card || !meta) return;
+
+      const artEl = card.querySelector('[data-slot-art]');
+      const headingEl = card.querySelector('[data-slot-heading]');
+      const descEl = card.querySelector('[data-slot-desc]');
+      const actionsEl = card.querySelector('[data-slot-actions]');
+      const allSaved = loadSlotData();
+      const savedItem = allSaved[slotId];
+
+      const mediaUrl = savedItem
+        ? (savedItem.mediaType === 'video' ? (sessionSlotVideoMap.get(slotId) || '') : (savedItem.mediaUrl || ''))
+        : '';
+
+      const displayTitle = (savedItem && (savedItem.customTitle || savedItem.fileName))
+        ? (savedItem.customTitle || savedItem.fileName)
+        : meta.defaultHeading;
+
+      const displayDesc = (savedItem && typeof savedItem.customDesc === 'string' && savedItem.customDesc.trim() !== '')
+        ? savedItem.customDesc
+        : meta.defaultDesc;
+
+      if (headingEl) headingEl.textContent = displayTitle;
+      if (descEl) descEl.textContent = displayDesc;
+
+      if (mediaUrl && savedItem) {
+        artEl.classList.add('has-media');
+        artEl.innerHTML = '';
+
+        if (savedItem.mediaType === 'image') {
+          const img = document.createElement('img');
+          img.src = mediaUrl;
+          img.alt = displayTitle;
+          img.className = 'project-media-cover';
+          artEl.appendChild(img);
+        } else if (savedItem.mediaType === 'video') {
+          const vid = document.createElement('video');
+          vid.src = mediaUrl;
+          vid.muted = true;
+          vid.loop = true;
+          vid.autoplay = true;
+          vid.playsInline = true;
+          vid.className = 'project-media-cover';
+          artEl.appendChild(vid);
+        }
+
+        const frameTag = document.createElement('span');
+        frameTag.className = 'frame-tag';
+        frameTag.textContent = meta.frame;
+        artEl.appendChild(frameTag);
+
+        const overlayInfo = document.createElement('div');
+        overlayInfo.innerHTML = `
+          <div class="play" aria-hidden="true">${savedItem.mediaType === 'video' ? '▶' : '🔍'}</div>
+          <strong style="font-size:1.2rem; color:#fff; text-shadow:0 2px 10px rgba(0,0,0,.85);">${escapeHtml(displayTitle)}</strong>
+          <p style="color:#bfdbfe; margin-top:4px; text-shadow:0 2px 8px rgba(0,0,0,.85);">Klik untuk memperbesar pratinjau</p>
+        `;
+        artEl.appendChild(overlayInfo);
+
+        const openPreview = () => {
+          window.openLightbox(
+            displayTitle,
+            meta.categoryLabel,
+            displayDesc,
+            savedItem.mediaType === 'video' ? '▶' : '◎',
+            '',
+            mediaUrl,
+            savedItem.mediaType
+          );
+        };
+
+        artEl.onclick = openPreview;
+
+        actionsEl.innerHTML = '';
+        const viewBtn = document.createElement('button');
+        viewBtn.type = 'button';
+        viewBtn.className = 'btn primary';
+        viewBtn.textContent = 'Lihat Pratinjau';
+        viewBtn.addEventListener('click', openPreview);
+
+        const editBtn = document.createElement('button');
+        editBtn.type = 'button';
+        editBtn.className = 'btn';
+        editBtn.textContent = '✎ Edit Nama & Keterangan';
+        editBtn.addEventListener('click', () => {
+          openEditWorkModal(
+            'slot',
+            slotId,
+            displayTitle,
+            savedItem.customDesc || ''
+          );
+        });
+
+        const changeBtn = document.createElement('button');
+        changeBtn.type = 'button';
+        changeBtn.className = 'btn';
+        changeBtn.textContent = 'Ganti File';
+        changeBtn.addEventListener('click', () => triggerSlotFilePicker(slotId));
+
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'btn-danger-sm';
+        removeBtn.textContent = 'Hapus File';
+        removeBtn.addEventListener('click', () => {
+          const current = loadSlotData();
+          delete current[slotId];
+          saveSlotData(current);
+          sessionSlotVideoMap.delete(slotId);
+          renderSlotCard(slotId);
+          showToast('File dikembalikan ke slot kosong.');
+        });
+
+        actionsEl.appendChild(viewBtn);
+        actionsEl.appendChild(editBtn);
+        actionsEl.appendChild(changeBtn);
+        actionsEl.appendChild(removeBtn);
+      } else {
+        artEl.classList.remove('has-media');
+        artEl.innerHTML = `
+          <span class="frame-tag">${meta.frame}</span>
+          <div>
+            <div class="play" aria-hidden="true">＋</div>
+            <strong style="font-size:${slotId === 'slot_video' ? '1.35rem' : '1.2rem'}; color:#fff">${escapeHtml((savedItem && savedItem.customTitle) ? savedItem.customTitle : meta.defaultTitle)}</strong>
+            <p style="color:#bfdbfe; margin-top:4px">${meta.defaultSub}</p>
+          </div>
+        `;
+        artEl.onclick = () => triggerSlotFilePicker(slotId);
+
+        actionsEl.innerHTML = '';
+        const uploadBtn = document.createElement('button');
+        uploadBtn.type = 'button';
+        uploadBtn.className = 'btn primary';
+        uploadBtn.textContent = meta.btnText;
+        uploadBtn.addEventListener('click', () => triggerSlotFilePicker(slotId));
+
+        const editBtn = document.createElement('button');
+        editBtn.type = 'button';
+        editBtn.className = 'btn';
+        editBtn.textContent = '✎ Edit Nama & Keterangan';
+        editBtn.addEventListener('click', () => {
+          openEditWorkModal(
+            'slot',
+            slotId,
+            displayTitle,
+            savedItem && savedItem.customDesc ? savedItem.customDesc : ''
+          );
+        });
+
+        actionsEl.appendChild(uploadBtn);
+        actionsEl.appendChild(editBtn);
+      }
+    }
+
+    if (slotDirectFileInput) {
+      slotDirectFileInput.addEventListener('change', async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file || !activeTargetSlotId) return;
+
+        const targetId = activeTargetSlotId;
+        const cleanName = file.name.replace(/\.[^/.]+$/, '');
+        const allSaved = loadSlotData();
+        const prevSlot = allSaved[targetId] || {};
+        const keepTitle = prevSlot.customTitle ? prevSlot.customTitle : cleanName;
+        const keepDesc = typeof prevSlot.customDesc === 'string' ? prevSlot.customDesc : '';
+
+        if (file.type.startsWith('image/')) {
+          try {
+            const compressedUrl = await compressImageToDataURL(file);
+            allSaved[targetId] = {
+              fileName: cleanName,
+              customTitle: keepTitle,
+              customDesc: keepDesc,
+              mediaType: 'image',
+              mediaUrl: compressedUrl
+            };
+            if (saveSlotData(allSaved)) {
+              renderSlotCard(targetId);
+              showToast('Gambar langsung ditampilkan di slot ini!');
+            }
+          } catch (err) {
+            showToast('Gagal memproses gambar.');
+          }
+        } else if (file.type.startsWith('video/')) {
+          const videoObjUrl = URL.createObjectURL(file);
+          sessionSlotVideoMap.set(targetId, videoObjUrl);
+          allSaved[targetId] = {
+            fileName: cleanName,
+            customTitle: keepTitle,
+            customDesc: keepDesc,
+            mediaType: 'video',
+            mediaUrl: ''
+          };
+          saveSlotData(allSaved);
+          renderSlotCard(targetId);
+          showToast('Video langsung ditampilkan di slot ini!');
+        } else {
+          showToast('Pilih file berformat gambar atau video.');
+        }
+      });
+    }
+
+    Object.keys(defaultSlotsMeta).forEach(renderSlotCard);
+
+    // =========================================================================
+    // 2. FITUR TAMBAH KARTU BARU (TOMBOL "+ UPLOAD KARYA" DI ATAS)
+    // =========================================================================
+    const STORAGE_KEY = 'yohanes_dkv_uploaded_projects_v1';
+    const uploadModal = document.getElementById('uploadModal');
+    const openUploadModalBtn = document.getElementById('openUploadModalBtn');
+    const closeUploadModalBtn = document.getElementById('closeUploadModalBtn');
+    const cancelUploadBtn = document.getElementById('cancelUploadBtn');
+    const uploadProjectForm = document.getElementById('uploadProjectForm');
+    const saveProjectBtn = document.getElementById('saveProjectBtn');
+    const uploadDropzone = document.getElementById('uploadDropzone');
+    const projectFileInput = document.getElementById('projectFileInput');
+    const dropzonePreview = document.getElementById('dropzonePreview');
+
+    let currentUploadedMedia = { url: '', type: '', persistable: false };
+    const sessionVideoMap = new Map();
+
+    const categoryConfig = {
+      poster: { label: 'Desain Poster', icon: '▧', theme: 'poster-theme', frame: 'CUSTOM / POSTER' },
+      video: { label: 'Video / Cinematic', icon: '▶', theme: '', frame: 'CUSTOM / VIDEO' },
+      photo: { label: 'Fotografi', icon: '◎', theme: 'photo-theme', frame: 'CUSTOM / PHOTO' },
+      animation: { label: 'Animasi', icon: '◇', theme: 'poster-theme', frame: 'CUSTOM / ANIMATION' }
+    };
+
+    function loadCustomProjects() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveCustomProjects(list) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+        return true;
+      } catch (e) {
+        showToast('Penyimpanan penuh! Hapus beberapa karya lama atau gunakan gambar lebih kecil.');
+        return false;
+      }
+    }
+
+    async function handleSelectedFile(file) {
+      if (!file || !dropzonePreview) return;
+      dropzonePreview.innerHTML = '';
+
+      if (file.type.startsWith('image/')) {
+        try {
+          const compressedDataUrl = await compressImageToDataURL(file);
+          currentUploadedMedia = { url: compressedDataUrl, type: 'image', persistable: true };
+          const img = document.createElement('img');
+          img.src = compressedDataUrl;
+          img.alt = 'Pratinjau gambar';
+          dropzonePreview.appendChild(img);
+          dropzonePreview.style.display = 'block';
+        } catch (err) {
+          showToast('Gagal memproses file gambar.');
+        }
+      } else if (file.type.startsWith('video/')) {
+        const objectUrl = URL.createObjectURL(file);
+        currentUploadedMedia = { url: objectUrl, type: 'video', persistable: false, file };
+        const vid = document.createElement('video');
+        vid.src = objectUrl;
+        vid.controls = true;
+        vid.muted = true;
+        dropzonePreview.appendChild(vid);
+        dropzonePreview.style.display = 'block';
+      } else {
+        showToast('Format file harus berupa gambar atau video.');
+      }
+    }
+
+    function resetUploadForm() {
+      if (uploadProjectForm) uploadProjectForm.reset();
+      currentUploadedMedia = { url: '', type: '', persistable: false };
+      if (dropzonePreview) {
+        dropzonePreview.innerHTML = '';
+        dropzonePreview.style.display = 'none';
+      }
+    }
+
+    function openUploadModal() {
+      if (!uploadModal) return;
+      resetUploadForm();
+      uploadModal.classList.add('open');
+    }
+
+    function closeUploadModal() {
+      if (!uploadModal) return;
+      uploadModal.classList.remove('open');
+    }
+
+    function createProjectCardElement(item) {
+      const cfg = categoryConfig[item.category] || categoryConfig.poster;
+      const activeMediaUrl = item.mediaType === 'video'
+        ? (sessionVideoMap.get(item.id) || '')
+        : (item.mediaUrl || '');
+
+      const article = document.createElement('article');
+      article.className = 'card project custom-project-card';
+      article.dataset.category = item.category;
+      article.dataset.id = item.id;
+
+      const artDiv = document.createElement('div');
+      artDiv.className = `project-art ${cfg.theme} ${activeMediaUrl ? 'has-media' : ''}`;
+
+      if (activeMediaUrl && item.mediaType === 'image') {
+        const coverImg = document.createElement('img');
+        coverImg.src = activeMediaUrl;
+        coverImg.alt = item.title;
+        coverImg.className = 'project-media-cover';
+        artDiv.appendChild(coverImg);
+      } else if (activeMediaUrl && item.mediaType === 'video') {
+        const coverVid = document.createElement('video');
+        coverVid.src = activeMediaUrl;
+        coverVid.muted = true;
+        coverVid.loop = true;
+        coverVid.playsInline = true;
+        coverVid.className = 'project-media-cover';
+        artDiv.appendChild(coverVid);
+      }
+
+      const frameSpan = document.createElement('span');
+      frameSpan.className = 'frame-tag';
+      frameSpan.textContent = cfg.frame;
+      artDiv.appendChild(frameSpan);
+
+      const centerBox = document.createElement('div');
+      centerBox.innerHTML = `
+        <div class="play" aria-hidden="true">${cfg.icon}</div>
+        <strong style="font-size:1.2rem; color:#fff; text-shadow:0 2px 10px rgba(0,0,0,.75);">${escapeHtml(item.title)}</strong>
+        <p style="color:#bfdbfe; margin-top:4px; text-shadow:0 2px 8px rgba(0,0,0,.75);">${cfg.label}</p>
+      `;
+      artDiv.appendChild(centerBox);
+
+      const finalDesc = item.desc || 'Karya portofolio yang ditambahkan oleh Yohanes Saragih.';
+
+      const openPreviewHandler = () => {
+        window.openLightbox(
+          item.title,
+          `${cfg.label} · Karya Upload`,
+          finalDesc,
+          cfg.icon,
+          item.link || '',
+          activeMediaUrl,
+          activeMediaUrl ? item.mediaType : ''
+        );
+      };
+
+      artDiv.addEventListener('click', openPreviewHandler);
+
+      const contentDiv = document.createElement('div');
+      contentDiv.className = 'project-content';
+
+      const infoDiv = document.createElement('div');
+      infoDiv.innerHTML = `
+        <h3>${escapeHtml(item.title)}</h3>
+        <p class="project-desc-text">${escapeHtml(item.desc || 'Karya kreatif yang diunggah ke portofolio.')}</p>
+        <div class="project-meta">
+          <span>${cfg.label}</span>
+          <span>Karya Upload</span>
+        </div>
+      `;
+
+      const actionsDiv = document.createElement('div');
+      actionsDiv.className = 'project-actions';
+
+      const previewBtn = document.createElement('button');
+      previewBtn.type = 'button';
+      previewBtn.className = 'btn primary';
+      previewBtn.textContent = 'Lihat Pratinjau';
+      previewBtn.addEventListener('click', openPreviewHandler);
+      actionsDiv.appendChild(previewBtn);
+
+      const editBtn = document.createElement('button');
+      editBtn.type = 'button';
+      editBtn.className = 'btn';
+      editBtn.textContent = '✎ Edit Nama & Keterangan';
+      editBtn.addEventListener('click', () => {
+        openEditWorkModal('custom', item.id, item.title, item.desc || '');
+      });
+      actionsDiv.appendChild(editBtn);
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.type = 'button';
+      deleteBtn.className = 'btn-danger-sm';
+      deleteBtn.textContent = 'Hapus';
+      deleteBtn.addEventListener('click', () => {
+        const updated = loadCustomProjects().filter(p => p.id !== item.id);
+        saveCustomProjects(updated);
+        sessionVideoMap.delete(item.id);
+        article.remove();
+        showToast('Karya berhasil dihapus.');
+      });
+      actionsDiv.appendChild(deleteBtn);
+
+      contentDiv.appendChild(infoDiv);
+      contentDiv.appendChild(actionsDiv);
+      article.appendChild(artDiv);
+      article.appendChild(contentDiv);
+
+      return article;
+    }
+
+    function renderAllCustomProjects() {
+      if (!projectsGrid) return;
+      document.querySelectorAll('.custom-project-card').forEach(el => el.remove());
+      const items = loadCustomProjects();
+      items.forEach(item => {
+        const cardEl = createProjectCardElement(item);
+        projectsGrid.appendChild(cardEl);
+      });
+      applyProjectFilter();
+      const projectsPage = document.getElementById('projects');
+      if (projectsPage && projectsPage.classList.contains('active')) {
+        setupScrollRevealForPage(projectsPage, false);
+      }
+    }
+
+    if (openUploadModalBtn) openUploadModalBtn.addEventListener('click', openUploadModal);
+    if (closeUploadModalBtn) closeUploadModalBtn.addEventListener('click', closeUploadModal);
+    if (cancelUploadBtn) cancelUploadBtn.addEventListener('click', closeUploadModal);
+    if (uploadModal) {
+      uploadModal.addEventListener('click', (e) => {
+        if (e.target === uploadModal) closeUploadModal();
+      });
+    }
+
+    if (uploadDropzone && projectFileInput) {
+      uploadDropzone.addEventListener('click', () => projectFileInput.click());
+      projectFileInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files[0]) {
+          handleSelectedFile(e.target.files[0]);
+        }
+      });
+
+      uploadDropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadDropzone.classList.add('dragover');
+      });
+      uploadDropzone.addEventListener('dragleave', () => {
+        uploadDropzone.classList.remove('dragover');
+      });
+      uploadDropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadDropzone.classList.remove('dragover');
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+          handleSelectedFile(e.dataTransfer.files[0]);
+        }
+      });
+    }
+
+    function saveUploadedProject() {
+      const titleEl = document.getElementById('projectTitleInput');
+      const titleVal = titleEl ? titleEl.value.trim() : '';
+      if (!titleVal) {
+        showToast('Nama / judul karya wajib diisi.');
+        if (titleEl) titleEl.focus();
+        return;
+      }
+
+      const categoryVal = document.getElementById('projectCategoryInput').value;
+      const descVal = document.getElementById('projectDescInput').value.trim();
+      const linkVal = document.getElementById('projectLinkInput').value.trim();
+      const newId = 'proj_' + Date.now();
+      if (currentUploadedMedia.type === 'video' && currentUploadedMedia.url) {
+        sessionVideoMap.set(newId, currentUploadedMedia.url);
+      }
+      const newProject = {
+        id: newId,
+        title: titleVal,
+        category: categoryVal,
+        desc: descVal,
+        link: linkVal,
+        mediaType: currentUploadedMedia.type || '',
+        mediaUrl: currentUploadedMedia.persistable ? currentUploadedMedia.url : ''
+      };
+      const existing = loadCustomProjects();
+      existing.unshift(newProject);
+      if (saveCustomProjects(existing)) {
+        renderAllCustomProjects();
+        closeUploadModal();
+        showToast('Karya baru berhasil ditambahkan!');
+      }
+    }
+
+    if (uploadProjectForm) {
+      uploadProjectForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        saveUploadedProject();
+      });
+    }
+    if (saveProjectBtn) {
+      saveProjectBtn.type = 'button';
+      saveProjectBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        saveUploadedProject();
+      });
+    }
+
+    renderAllCustomProjects();
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (lightboxModal && lightboxModal.classList.contains('open')) closeLightbox();
+        if (toolModal && toolModal.classList.contains('open')) closeToolModal();
+        if (uploadModal && uploadModal.classList.contains('open')) closeUploadModal();
+        if (editMetaModal && editMetaModal.classList.contains('open')) closeEditWorkModal();
+      }
+    });
+
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+    const initial = location.hash.slice(1);
+    showPage(document.getElementById(initial) ? initial : 'home', false);
+  } catch (err) {
+    console.error('Terjadi kesalahan pada inisialisasi skrip:', err);
+  }
+});
